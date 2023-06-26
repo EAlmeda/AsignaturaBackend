@@ -4,8 +4,6 @@ class Language
     private $id;
     private $name;
     private $ISOCode;
-    private $birthdate;
-    private $nationality;
 
     function __construct($id, $name, $ISOCode)
     {
@@ -60,38 +58,6 @@ class Language
 	 */
 	public function setISOCode($ISOCode): self {
 		$this->ISOCode = $ISOCode;
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getBirthdate() {
-		return $this->birthdate;
-	}
-	
-	/**
-	 * @param mixed $birthdate 
-	 * @return self
-	 */
-	public function setBirthdate($birthdate): self {
-		$this->birthdate = $birthdate;
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getNationality() {
-		return $this->nationality;
-	}
-	
-	/**
-	 * @param mixed $nationality 
-	 * @return self
-	 */
-	public function setNationality($nationality): self {
-		$this->nationality = $nationality;
 		return $this;
 	}
 }

@@ -54,18 +54,68 @@ class Platform
     {
 
         $mysqli = Db::initConnectionDb();
-        
+
         $query = $mysqli->query("SELECT * FROM PLATFORM");
 
         $listData = [];
-        foreach($query as $item){
-            $itemObject = new Platform($item['id'],$item['name']);
-            array_push($listData,$itemObject);
+        foreach ($query as $item) {
+            $itemObject = new Platform($item['id'], $item['name']);
+            array_push($listData, $itemObject);
         }
         $mysqli->close();
 
         return $listData;
     }
-}
 
-?>
+    public static function getByName($name)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $platformData = $mysqli->query("SELECT * FROM platform WHERE name='$name'");
+        $platformObject = null;
+        foreach ($platformData as $platformItem) {
+            $platformObject = new Platform($platformItem['id'], $platformItem['name']);
+            break;
+        }
+
+        $mysqli->close();
+
+        return $platformObject;
+    }
+
+    public static function getById($id)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $platformData = $mysqli->query("SELECT * FROM platform WHERE id='$id'");
+        $platformObject = null;
+        foreach ($platformData as $platformItem) {
+            $platformObject = new Platform($platformItem['id'], $platformItem['name']);
+            break;
+        }
+
+        $mysqli->close();
+
+        return $platformObject;
+    }
+
+    public static function insert($name)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $result = $mysqli->query("INSERT INTO PLATFORM (name) VALUES ('$name')");
+        $mysqli->close();
+
+        return $result;
+    }
+
+    public static function update($id, $name)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $result = $mysqli->query("UPDATE PLATFORM SET name='$name' where id='$id'");
+        $mysqli->close();
+
+        return $result;
+    }
+}

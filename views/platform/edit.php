@@ -1,5 +1,5 @@
 <?php
-    require_once('.../../controllers/PlatformController.php');
+    require_once('../../controllers/PlatformController.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,7 @@
             <?php
             $idPlatform = $_GET['id'];
             $platformObject = getPlatformData($idPlatform);
-
+    
             $sendData = false;
             $platformEdited = false;
             if(isset($_POST['editBtn'])) {

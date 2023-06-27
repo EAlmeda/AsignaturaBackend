@@ -12,6 +12,7 @@
             <?php
                 $sendData = false;
                 $platformCreated = false;
+                $errorMessage='';
                 if(isset($_POST['platformName'])) {
                     $sendData = true;
                 }
@@ -51,7 +52,7 @@
                         ?>
                     <div class="row">
                         <div class="alert alert-danger" role="alert">
-                            La plataforma no se ha creado correctamente. <br><a href="create.php">Volver a intentarlo</a>
+                            La plataforma no se ha creado correctamente.<br><a href="create.php">Volver a intentarlo</a>
                         </div>
                     </div>
                     <?php

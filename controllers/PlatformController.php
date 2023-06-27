@@ -1,58 +1,41 @@
 <?php
-echo('a');
 require_once('../../models/Platform.php');
 
-
-
+/**
+ * Metodo que lista las plataformas
+ */
 function listPlatforms()
 {
-echo('a');
-
     $platformList = Platform::getAll();
 
-    $platformObjectArray = [];
-    foreach ($platformList as $platformItem) {
+    // $platformObjectArray = [];
+    // foreach ($platformList as $platformItem) {
+    //     $platformObject = new Platform($platformItem->getId(), $platformItem->getName());
+    //     array_push($platformObjectArray, $platformObject);
+    // }
 
-        $platformObject = new Platform($platformItem->getId(), $platformItem->getName());
-        array_push($platformObjectArray, $platformObject);
-    }
-
-    return $platformObjectArray;
+    return $platformList;
 }
 
 function storePlatform($platformName)
 {
-    $mysqli = Db::initConnectionDb();
+    $platform = Platform::getByName($platformName);
 
-    $platformCreated = false;
-    //TODO: Comprobar todas las validaciones
-    if (isset($platformName) && getPlatformByName($platformName)) {
-        if ($resultadoInsert = $mysqli->query("INSERT INTO plataforma (nombre) VALUES ('$platformName')")) {
-            $platformCreated = true;
-        }
+    if (isset($platform)) {
+        echo ('El nombre de la plataforma ya existe');
+        return false;
+    }
+
+    if (!isset($platformName)) {
+        echo ('Hay algún campo vacío');
+        return false;
+    }
+    if (Platform::insert($platformName)) {
+        return true;
     } else {
-        return 'No se ha enviado la información correcta';
+        echo ('Ha ocurrido un error añadiendo la plataforma a BD');
+        return false;
     }
-
-    $mysqli->close();
-
-    return $platformCreated;
-}
-
-function getPlatform($platformId)
-{
-    $mysqli = Db::initConnectionDb();
-
-    $platformData = $mysqli->query("SELECT * FROM platform WHERE id=$platformId");
-    $platformObject = null;
-    foreach ($platformData as $platformItem) {
-        $platformObject = new Platform($platformItem['id'], $platformItem['name']);
-        break;
-    }
-
-    $mysqli->close();
-
-    return $platformObject;
 }
 
 function getPlatformByName($platformName)
@@ -73,19 +56,18 @@ function getPlatformByName($platformName)
 
 function updatePlatform($platformId, $platformName)
 {
-    $mysqli = Db::initConnectionDb();
-
     $platformEdited = false;
 
-    if (getPlatform($platformId)) {
-        if ($resultadoUpdate = $mysqli->query("UPDATE platforms SET name='$platformName' where id=$platformId")) {
+    if (Platform::getById($platformId)) {
+        if (Platform::update($platformId,$platformName)) {
             $platformEdited = true;
         }
     }
 
-    $mysqli->close();
-
     return $platformEdited;
+}
+function getPlatformData($platformId){
+    return Platform::getById($platformId);
 }
 
 function deletePlatform($platformId)
@@ -94,11 +76,11 @@ function deletePlatform($platformId)
 
     $platformDeleted = false;
 
-    if (getPlatform($platformId)) {
-        if ($resultado = $mysqli->query("DELETE FROM platforms where id=$platformId")) {
-            $platformDeleted = true;
-        }
-    }
+    // if (getPlatform($platformId)) {
+    //     if ($resultado = $mysqli->query("DELETE FROM platforms where id=$platformId")) {
+    //         $platformDeleted = true;
+    //     }
+    // }
 
     $mysqli->close();
 

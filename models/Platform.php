@@ -1,5 +1,6 @@
 <?php
-require_once('Db.php');
+require_once('../../models/Db.php');
+
 
 class Platform
 {
@@ -8,8 +9,8 @@ class Platform
 
     public function __construct($id, $name)
     {
-        $this->$id = $id;
-        $this->$name = $name;
+        $this->id = $id;
+        $this->name = $name;
     }
 
 
@@ -49,14 +50,14 @@ class Platform
         return $this;
     }
 
-    public function getAll()
+    public static function getAll()
     {
         $mysqli = Db::initConnectionDb();
         
-        $query = $mysqli->query("SELECT * FROM PLATFORMS");
+        $query = $mysqli->query("SELECT * FROM PLATAFORMA");
         $listData = [];
         foreach($query as $item){
-            $itemObject = new Platform($item['id'],$item['name']);
+            $itemObject = new Platform($item['id'],$item['nombre']);
             array_push($listData,$itemObject);
         }
         $mysqli->close();

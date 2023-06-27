@@ -6,7 +6,7 @@ class Db{
         $db_host = 'localhost';
         $db_user = 'root';
         $db_password = 'root';
-        $db_db = 'actividad1';
+        $db_db = 'filmoteca';
     
         $mysqli = @new mysqli(
             $db_host,

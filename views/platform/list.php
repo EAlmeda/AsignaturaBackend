@@ -1,5 +1,6 @@
 <?php
-    require_once('.../../controllers/PlatformController.php');
+    echo('test1');
+    require_once('../../controllers/PlatformController.php');
 ?>
 <!DOCTYPE html>
 <html>

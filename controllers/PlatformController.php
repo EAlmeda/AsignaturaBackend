@@ -1,34 +1,18 @@
 <?php
-    require_once('.../../models/Platform.php');
+    echo('test2');
+    require_once('../../models/Db.php');
 
-    function initConnectionDb()
-    {
-        $db_host = 'localhost';
-        $db_user = 'root';
-        $db_password = 'root';
-        $db_db = 'actividad1';
-
-        $mysqli = @new mysqli(
-            $db_host,
-            $db_user,
-            $db_password,
-            $db_db
-        );
-        if ($mysqli->connect_error) {
-            die('Error: ' . $mysqli->connect_error);
-        }
-
-        return $mysqli;
-    }
+    
 
     function listPlatforms() {
-        $mysqli = initConnectionDb();
-        $platformList = $mysqli->query("SELECT * FROM platforms");
+        $mysqli = Db::initConnectionDb();
+        $platformList = $mysqli->query("SELECT * FROM platform");
 
         $platformObjectArray = [];
         foreach($platformList as $platformItem){
+            echo('a');
             $platformObject = new Platform($platformItem['id'], $platformItem['name']);
-            array_push($platformArray, $platformObjectArray);
+            array_push($platformObjectArray, $platformObject);
         }
         $mysqli->close();
 
@@ -36,12 +20,12 @@
     }
 
     function storePlatform ($platformName) {
-        $mysqli = initConnectionDb();
+        $mysqli = Db::initConnectionDb();
 
         $platformCreated = false;
         //TODO: Comprobar todas las validaciones
         if(isset($platformName) && getPlatformByName($platformName)) {
-            if($resultadoInsert = $mysqli-> query("INSERT INTO platforms (name) VALUES ('$platformName')")) {
+            if($resultadoInsert = $mysqli-> query("INSERT INTO platform (name) VALUES ('$platformName')")) {
                 $platformCreated = true;
             }
         } else {
@@ -54,7 +38,7 @@
     }
 
     function getPlatform ($platformId) {
-        $mysqli = initConnectionDb();
+        $mysqli = Db::initConnectionDb();
 
         $platformData = $mysqli->query("SELECT * FROM platform WHERE id=$platformId");
         $platformObject = null;
@@ -69,7 +53,7 @@
     }
 
     function getPlatformByName ($platformName) {
-        $mysqli = initConnectionDb();
+        $mysqli = Db::initConnectionDb();
 
         $platformData = $mysqli->query("SELECT * FROM platform WHERE name=$platformName");
         $platformObject = null;
@@ -84,7 +68,7 @@
     }
 
     function updatePlatform ($platformId, $platformName) {
-        $mysqli = initConnectionDb();
+        $mysqli = Db::initConnectionDb();
 
         $platformEdited = false;
         
@@ -100,7 +84,7 @@
     }
 
     function deletePlatform ($platformId) {
-        $mysqli = initConnectionDb();
+        $mysqli = Db::initConnectionDb();
 
         $platformDeleted = false;
         

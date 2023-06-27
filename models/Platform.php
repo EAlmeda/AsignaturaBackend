@@ -52,12 +52,14 @@ class Platform
 
     public static function getAll()
     {
+
         $mysqli = Db::initConnectionDb();
         
-        $query = $mysqli->query("SELECT * FROM PLATAFORMA");
+        $query = $mysqli->query("SELECT * FROM PLATFORM");
+
         $listData = [];
         foreach($query as $item){
-            $itemObject = new Platform($item['id'],$item['nombre']);
+            $itemObject = new Platform($item['id'],$item['name']);
             array_push($listData,$itemObject);
         }
         $mysqli->close();

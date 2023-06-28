@@ -1,4 +1,7 @@
 <?php
+
+require_once('../../models/Db.php');
+
 class Language
 {
     private $id;
@@ -7,9 +10,9 @@ class Language
 
     function __construct($id, $name, $ISOCode)
     {
-        $this->$id = $id;
-        $this->$name = $name;
-        $this->$ISOCode = $ISOCode;
+        $this->id = $id;
+        $this->name = $name;
+        $this->ISOCode = $ISOCode;
     }
 
 
@@ -70,7 +73,7 @@ class Language
 
         $listData = [];
         foreach ($query as $item) {
-            $itemObject = new Language($item['id'], $item['iso'], $item['name']);
+            $itemObject = new Language($item['id'], $item['name'], $item['iso']);
             array_push($listData, $itemObject);
         }
         $mysqli->close();
@@ -85,7 +88,7 @@ class Language
         $languageData = $mysqli->query("SELECT * FROM LANGUAGE WHERE id='$id'");
         $languageObject = null;
         foreach ($languageData as $languageItem) {
-            $languageObject = new Language($languageItem['id'], $languageItem['iso'], $languageItem['name']);
+            $languageObject = new Language($languageItem['id'], $languageItem['name'], $languageItem['iso']);
             break;
         }
 
@@ -101,7 +104,7 @@ class Language
         $languageData = $mysqli->query("SELECT * FROM LANGUAGE WHERE name='$name'");
         $languageObject = null;
         foreach ($languageData as $languageItem) {
-            $languageObject = new Language($languageItem['id'], $languageItem['iso'], $languageItem['name']);
+            $languageObject = new Language($languageItem['id'], $languageItem['name'], $languageItem['iso']);
             break;
         }
 
@@ -123,7 +126,7 @@ class Language
 	public static function update($id, $name, $iso)
     {
         $mysqli = Db::initConnectionDb();
-
+       
         $result = $mysqli->query("UPDATE LANGUAGE SET name='$name', iso='$iso' where id='$id'");
         $mysqli->close();
 

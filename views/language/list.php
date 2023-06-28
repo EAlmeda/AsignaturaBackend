@@ -1,5 +1,4 @@
 <?php
-    echo('test1');
     require_once('../../controllers/LanguageController.php');
 ?>
 <!DOCTYPE html>
@@ -39,16 +38,18 @@
                                         <a class="btn btn-success" href="edit.php?id=<?php echo $language->getId();?>">Edit</a>
                                         &nbsp:&nbsp;
                                         <form name="delete_language" action="delete.php" method="POST" style="display: inline;">
-                                            <input type="hidden" name="platformId" value="<?php echo $language->getId();?>" />
+                                            <input type="hidden" name="languageId" value="<?php echo $language->getId();?>" />
                                             <button type="submit" class="btn btn-danger">Delete</button>  
                                         </form>
                                     </div>
                                 </td>
                             </tr>
+                            <?php
+                        }?>
                         </tbody>
                     </table>
                     <?php
-                        } } else {
+                        } else {
                     ?>
                     <div class="alert alert-warning" role="alert">
                         No languages are yet available.

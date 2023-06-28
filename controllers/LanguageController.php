@@ -1,5 +1,5 @@
 <?php
-require_once('../../models/Language.php');
+ require_once('../../models/Language.php');
 
 /**
  * Metodo que lista los idiomas
@@ -44,6 +44,8 @@ function storeLanguage($languageName, $languageIso)
 
 function updateLanguage($languageId, $languageName, $languageIso)
 {
+    echo($languageName);
+    echo($languageIso);
     $languageEdited = false;
 
     if (language::getById($languageId)) {
@@ -62,7 +64,7 @@ function deleteLanguage($languageId)
     $languageDeleted = false;
 
     if (Language::getById($languageId)) {
-        if ($resultado = Language::delete($languageId)) {
+        if (Language::delete($languageId)) {
             $languageDeleted = true;
         }
     }

@@ -118,4 +118,14 @@ class Platform
 
         return $result;
     }
+
+    public static function delete($id){
+        
+        $mysqli = Db::initConnectionDb();
+
+        $result = $mysqli->query("DELETE FROM PLATFORM WHERE id='$id'");
+        $mysqli->close();
+
+        return $result;
+    }
 }

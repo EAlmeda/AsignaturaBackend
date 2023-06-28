@@ -32,8 +32,8 @@ require_once('../../controllers/PlatformController.php');
                             foreach ($platformList as $platform) {
                             ?>
                                 <tr>
-                                    <td>a</td>
-                                    <td>a</td>
+                                <td><?php echo($platform->getId()); ?></td>
+                                <td><?php echo $platform->getName(); ?></td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Platform">
                                             <a class="btn btn-success" href="edit.php?id=<?php echo $platform->getId(); ?>">Edit</a>

@@ -66,23 +66,20 @@ function updatePlatform($platformId, $platformName)
 
     return $platformEdited;
 }
-function getPlatformData($platformId){
+function getPlatform($platformId){
     return Platform::getById($platformId);
 }
 
 function deletePlatform($platformId)
 {
-    $mysqli = Db::initConnectionDb();
 
     $platformDeleted = false;
 
-    // if (getPlatform($platformId)) {
-    //     if ($resultado = $mysqli->query("DELETE FROM platform where id=$platformId")) {
-    //         $platformDeleted = true;
-    //     }
-    // }
-
-    $mysqli->close();
+     if (getPlatform($platformId)) {
+         if (Platform::delete($platformId)) {
+             $platformDeleted = true;
+         }
+     }
 
     return $platformDeleted;
 }

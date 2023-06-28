@@ -11,7 +11,7 @@
         <div class="container">
             <?php
             $idPlatform = $_GET['id'];
-            $platformObject = getPlatformData($idPlatform);
+            $platformObject = getPlatform($idPlatform);
     
             $sendData = false;
             $platformEdited = false;

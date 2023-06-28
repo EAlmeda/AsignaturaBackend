@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <div th:replace="head"></div>
-        <title>Biblioteca</title>
+        <!-- Try to replace it for a head fragment-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>Film library</title>
     </head>
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <h1>Biblioteca de plataformas</h1>
+                <div class="col-15">
+                    <h1>Film library</h1>
                 </div>
             </div>
-            <div class="col-12">
+            <div class="col-15">
                 <div class="d-flex align-items-center justify-content-center">
-                    <div class="col-2">
+                    <div class="col-5">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Plataformas</h5>
-                                <p class="card-text">Listado y gestión de las plataformas creadas en base de datos</p>
-                                <a class="btn btn-primary" href="views/platform/list.php">Listado de plataformas</a>
+                                <h5 class="card-title">Platforms</h5>
+                                <p class="card-text">List and management of platforms in DB</p>
+                                <a class="btn btn-info" href="views/platform/list.php">List of plataforms</a>
                             </div>
                         </div>
                     </div>
-                    <!-- Poner los enlaces a los distintos listados -->
+                    <div class="col-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Languages</h5>
+                                <p class="card-text">List and management of languages in DB</p>
+                                <a class="btn btn-info" href="views/language/list.php">List of languages</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Series</h5>
+                                <p class="card-text">List and management of series in DB</p>
+                                <a class="btn btn-info" href="views/serie/list.php">List of series</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

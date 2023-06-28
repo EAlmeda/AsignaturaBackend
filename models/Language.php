@@ -60,6 +60,85 @@ class Language
 		$this->ISOCode = $ISOCode;
 		return $this;
 	}
+
+	public static function getAll()
+    {
+
+        $mysqli = Db::initConnectionDb();
+
+        $query = $mysqli->query("SELECT * FROM LANGUAGE");
+
+        $listData = [];
+        foreach ($query as $item) {
+            $itemObject = new Language($item['id'], $item['iso'], $item['name']);
+            array_push($listData, $itemObject);
+        }
+        $mysqli->close();
+
+        return $listData;
+    }
+
+	public static function getById($id)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $languageData = $mysqli->query("SELECT * FROM LANGUAGE WHERE id='$id'");
+        $languageObject = null;
+        foreach ($languageData as $languageItem) {
+            $languageObject = new Language($languageItem['id'], $languageItem['iso'], $languageItem['name']);
+            break;
+        }
+
+        $mysqli->close();
+
+        return $languageObject;
+    }
+
+    public static function getByName($name)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $languageData = $mysqli->query("SELECT * FROM LANGUAGE WHERE name='$name'");
+        $languageObject = null;
+        foreach ($languageData as $languageItem) {
+            $languageObject = new Language($languageItem['id'], $languageItem['iso'], $languageItem['name']);
+            break;
+        }
+
+        $mysqli->close();
+
+        return $languageObject;
+    }
+
+	public static function insert($name, $iso)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $result = $mysqli->query("INSERT INTO LANGUAGE (name, iso) VALUES ('$name', '$iso')");
+        $mysqli->close();
+
+        return $result;
+    }
+
+	public static function update($id, $name, $iso)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $result = $mysqli->query("UPDATE LANGUAGE SET name='$name', iso='$iso' where id='$id'");
+        $mysqli->close();
+
+        return $result;
+    }
+
+	public static function delete($id)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $result = $mysqli->query("DELETE FROM LANGUAGE where id='$id'");
+        $mysqli->close();
+
+        return $result;
+    }
 }
 
 ?>

@@ -8,11 +8,11 @@ function listPlatforms()
 {
     $platformList = Platform::getAll();
 
-    // $platformObjectArray = [];
-    // foreach ($platformList as $platformItem) {
-    //     $platformObject = new Platform($platformItem->getId(), $platformItem->getName());
-    //     array_push($platformObjectArray, $platformObject);
-    // }
+    $platformObjectArray = [];
+    foreach ($platformList as $platformItem) {
+        $platformObject = new Platform($platformItem->getId(), $platformItem->getName());
+        array_push($platformObjectArray, $platformObject);
+    }
 
     return $platformList;
 }
@@ -77,7 +77,7 @@ function deletePlatform($platformId)
     $platformDeleted = false;
 
     // if (getPlatform($platformId)) {
-    //     if ($resultado = $mysqli->query("DELETE FROM platforms where id=$platformId")) {
+    //     if ($resultado = $mysqli->query("DELETE FROM platform where id=$platformId")) {
     //         $platformDeleted = true;
     //     }
     // }

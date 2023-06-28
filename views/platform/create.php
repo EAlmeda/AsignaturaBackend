@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <div th:replace="head"></div>
-        <title>Crear plataforma</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>Add plataform</title>
     </head>
     <body>
         <div class="container">
@@ -26,15 +26,15 @@
             ?>
             <div class="row">
                 <div class="col-12">
-                    <h1>Crear plataforma</h1>
+                    <h1>Add plataform</h1>
                 </div>
                 <div class="col-12">
                     <form name="create-platform" action="" method="POST">
                         <div class="mb-3">
-                            <label form="platformName" class="form-label">Nombre plataforma</label>
-                            <input id="platformName" name="platformName" type="text" placeholder="Introduce el nombre de la plataforma" class="form-control" required/>
+                            <label form="platformName" class="form-label">Platform name</label>
+                            <input id="platformName" name="platformName" type="text" placeholder="Introduce the name of the new platform" class="form-control" required/>
                         </div>
-                        <input type="submit" value="Crear" class="btn btn-primary" name="createBtn"/>
+                        <input type="submit" value="Crear" class="btn btn-info" name="createBtn"/>
                     </form>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                         ?>
                     <div class="row">
                         <div class="alert alert-success" role="alert">
-                            Plataforma creada correctamente.<br><a href="list.php">Volver al listado de plataformas.</a>
+                            Plataform created successfully.<br><a href="list.php">Go back to the list of platforms.</a>
                         </div>
                     </div>
                     <?php
@@ -52,7 +52,7 @@
                         ?>
                     <div class="row">
                         <div class="alert alert-danger" role="alert">
-                            La plataforma no se ha creado correctamente.<br><a href="create.php">Volver a intentarlo</a>
+                            The platform has not been created correctly.<br><a href="create.php">Try it again.</a>
                         </div>
                     </div>
                     <?php

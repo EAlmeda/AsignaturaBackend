@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <div th:replace="head"></div>
-        <title>Editar plataforma</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>Edit plataform</title>
     </head>
     <body>
         <div class="container">
@@ -29,19 +29,19 @@
                 ?>
                 <div class="row">
                     <div class="col-12">
-                        <h1>Editar plataforma</h1>
+                        <h1>Edit plataform</h1>
                     </div>
                 </div>
                 <div class="col-12">
                     <form name="create_platform" action="" method="POST">
                         <div class="mb-3">
-                            <label for="platformName" class="form-label">Nombre de la plataforma</label>
+                            <label for="platformName" class="form-label">Platform name</label>
                             <input id="platformName" name="platformName" type="text"
-                            placeholder="Introduce el nombre de la plataforma" class="form-control"
+                            placeholder="Introduce the name of the new platform" class="form-control"
                             required value="<?php if(isset($platformObject)) echo $platformObject->getName(); ?>"/>
                             <input type="hidden" name="platformId" value="<?php echo $idPlatform; ?>"/>
                         </div>
-                        <input type="submit" value="Editar" class="btn btn-primary" name="editBtn"/>
+                        <input type="submit" value="Edit" class="btn btn-info" name="editBtn"/>
                     </form>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                 ?>
                 <div class="row">
                     <div class="alert alert-success" role="alert">
-                        Plataforma editada correctamente.<br><a href="list.php">Volver al lsitado de plataformas.</a>
+                        Plataform edited successfully.<br><a href="list.php">Go back to the list of platforms.</a>
                     </div>
                 </div>
                 <?php 
@@ -59,7 +59,7 @@
                 ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    La plataforma no se ha editado correctamente.<br><a href="edit.php?id=<?php echo $idPlatform;?>">Volver a intentarlo.</a>
+                    The platform has not been edited correctly.<br><a href="edit.php?id=<?php echo $idPlatform;?>">Try it again.</a>
                 </div>
             </div>
             <?php

@@ -20,7 +20,6 @@ class Serie
         $this->$captionLanguage = $captionLanguage;
     }
 
-
 	/**
 	 * @return mixed
 	 */
@@ -132,6 +131,23 @@ class Serie
 		$this->captionLanguage = $captionLanguage;
 		return $this;
 	}
+
+	public static function getAll()
+    {
+
+        $mysqli = Db::initConnectionDb();
+
+        $query = $mysqli->query("SELECT * FROM SERIE");
+
+        $listData = [];
+        // foreach ($query as $item) {
+        //     $itemObject = new Serie($item['id'], $item['name']);
+        //     array_push($listData, $itemObject);
+        // }
+        $mysqli->close();
+
+        return $listData;
+    }
 }
 
 ?>

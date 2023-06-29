@@ -313,4 +313,14 @@ class Serie
 
 		return $result;
 	}
+
+	public static function delete($id){
+        
+        $mysqli = Db::initConnectionDb();
+
+        $result = $mysqli->query("DELETE FROM SERIE WHERE id='$id'");
+        $mysqli->close();
+
+        return $result;
+    }
 }

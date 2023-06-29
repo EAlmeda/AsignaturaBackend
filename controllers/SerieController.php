@@ -10,11 +10,19 @@ function listSeries()
 
     $serieObjectArray = [];
     foreach ($serieList as $serieItem) {
-        $serieObject = new Serie($serieItem->getId(), $serieItem->getName());
+        $serieObject = new Serie(
+            $serieItem->getId(),
+            $serieItem->getName(),
+            $serieItem->getPlatforms(),
+            $serieItem->getDirectors(),
+            $serieItem->getActors(),
+            $serieItem->getAudioLanguage(),
+            $serieItem->getCaptionLanguage()
+        );
         array_push($serieObjectArray, $serieObject);
     }
 
-    return $serieList;
+    return $serieObjectArray;
 }
 
 
@@ -39,4 +47,21 @@ function storeSerie($serieName)
     }
 }
 
-?>
+function getSerie($serieId)
+{
+    return Serie::getById($serieId);
+}
+
+function deleteSerie($serieId)
+{
+
+    $serieDeleted = false;
+
+    if (getSerie($serieId)) {
+        if (Serie::delete($serieId)) {
+            $serieDeleted = true;
+        }
+    }
+
+    return $serieDeleted;
+}

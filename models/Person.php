@@ -1,5 +1,5 @@
 <?php
-abstract class Person
+class Person
 {
     private $id;
     private $name;
@@ -9,11 +9,11 @@ abstract class Person
 
     function __construct($id, $name, $surname, $birthdate, $nationality)
     {
-        $this->$id = $id;
-        $this->$name = $name;
-        $this->$surname = $surname;
-        $this->$birthdate = $birthdate;
-        $this->$nationality = $nationality;
+        $this->id = $id;
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->birthdate = $birthdate;
+        $this->nationality = $nationality;
     }
 
 
@@ -106,6 +106,9 @@ abstract class Person
         $this->surname = $surname;
         return $this;
     }
-}
 
-?>
+    public function getFullname()
+    {
+        return $this->name.' '.$this->surname;
+    }
+}

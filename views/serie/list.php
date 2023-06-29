@@ -35,12 +35,12 @@
                             ?>
                             <tr>
                                 <td><?php echo $serie->getId(); ?></td>
-                                <td><?php echo $serie->getTitle(); ?></td>
-                                <td><?php echo $serie->getPlatform(); ?></td>
-                                <td><?php echo $serie->getDirector(); ?></td>
-                                <td><?php foreach($serie->getActors() as $actor) { echo $actor; }?></td>
-                                <td><?php echo $serie->getAudioLanguage(); ?></td>
-                                <td><?php echo $serie->getCaptionLanguage(); ?></td>
+                                <td><?php echo $serie->getName(); ?></td>
+                                <td><?php foreach($serie->getPlatforms() as $platform) { echo($platform->getName().' - '); }?></td>
+                                <td><?php foreach($serie->getDirectors() as $director) { echo($director->getFullname().' - '); }?></td>
+                                <td><?php foreach($serie->getActors() as $actor) { echo($actor->getFullname().' - '); }?></td>
+                                <td><?php foreach($serie->getAudioLanguage() as $audio) { echo($audio->getName().' - '); }?></td>
+                                <td><?php foreach($serie->getCaptionLanguage() as $caption) { echo($caption->getName().' - '); }?></td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Serie">
                                         <a class="btn btn-success" href="edit.php?id=<?php echo $serie->getId();?>">Edit</a>
@@ -52,10 +52,12 @@
                                     </div>
                                 </td>
                             </tr>
+                            <?php
+                        }?>
                         </tbody>
                     </table>
                     <?php
-                        } } else {
+                        }  else {
                     ?>
                     <div class="alert alert-warning" role="alert">
                         No series are yet available.

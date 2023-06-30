@@ -8,13 +8,13 @@
         <title>List of directors</title>
     </head>
     <body>
-        <div class="container">
+        <div class="container" style="padding:24px">
             <div class="row">
                 <h1>List of directors</h1>
-                <div class="col-6">
+                <div class="col-6" style="padding: 8px">
                     <a class="btn btn-info" href="../person/create.php">+ Add person</a>
                 </div>
-                <div class="col-12">
+                <div class="col-12" style="padding:24px">
                     <?php
                     $directorsList = listDirectors();
                     if(count($directorsList) > 0) {

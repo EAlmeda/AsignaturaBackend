@@ -12,7 +12,7 @@
             <div class="row">
                 <h1>List of actors</h1>
                 <div class="col-6">
-                    <a class="btn btn-info" href="create.php">+ Add actor</a>
+                    <a class="btn btn-info" href="../person/create.php">+ Add person</a>
                 </div>
                 <div class="col-12">
                     <?php
@@ -39,9 +39,9 @@
                                 <td><?php echo $actor->getNationality(); ?></td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Actor">
-                                        <a class="btn btn-success" href="edit.php?id=<?php echo $actor->getId();?>">Edit</a>
+                                        <a class="btn btn-success" href="../person/edit.php?id=<?php echo $actor->getId();?>">Edit</a>
                                         &nbsp:&nbsp;
-                                        <form name="delete_actor" action="delete.php" method="POST" style="display: inline;">
+                                        <form name="delete_actor" action="../person/delete.php" method="POST" style="display: inline;">
                                             <input type="hidden" name="actorId" value="<?php echo $actor->getId();?>" />
                                             <button type="submit" class="btn btn-danger">Delete</button>  
                                         </form>

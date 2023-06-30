@@ -12,7 +12,7 @@
             <div class="row">
                 <h1>List of directors</h1>
                 <div class="col-6">
-                    <a class="btn btn-info" href="create.php">+ Add director</a>
+                    <a class="btn btn-info" href="../person/create.php">+ Add person</a>
                 </div>
                 <div class="col-12">
                     <?php
@@ -39,9 +39,9 @@
                                 <td><?php echo $director->getNationality(); ?></td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Director">
-                                        <a class="btn btn-success" href="edit.php?id=<?php echo $director->getId();?>">Edit</a>
+                                        <a class="btn btn-success" href="../person/edit.php?id=<?php echo $director->getId();?>">Edit</a>
                                         &nbsp:&nbsp;
-                                        <form name="delete_director" action="delete.php" method="POST" style="display: inline;">
+                                        <form name="delete_director" action="../person/delete.php" method="POST" style="display: inline;">
                                             <input type="hidden" name="directorId" value="<?php echo $director->getId();?>" />
                                             <button type="submit" class="btn btn-danger">Delete</button>  
                                         </form>

@@ -10,7 +10,7 @@ require_once('../../controllers/PersonController.php');
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="padding:24px">
         <?php
         $idPerson = $_POST['personId'];
         $personDeleted = deletePerson($idPerson);

@@ -8,7 +8,7 @@
         <title>Delete language</title>
     </head>
     <body>
-        <div class="container">
+        <div class="container" style="padding:24px">
             <?php 
             $idSerie = $_POST['serieId'];
             $serieDeleted = deleteSerie($idSerie);

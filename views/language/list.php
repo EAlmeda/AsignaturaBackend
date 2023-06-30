@@ -8,13 +8,13 @@
         <title>List of languages</title>
     </head>
     <body>
-        <div class="container">
+        <div class="container" style="padding:24px">
             <div class="row">
                 <h1>List of languages</h1>
-                <div class="col-6">
+                <div class="col-6" style="padding: 8px">
                     <a class="btn btn-info" href="create.php">+ Add language</a>
                 </div>
-                <div class="col-12">
+                <div class="col-12" style="padding:24px">
                     <?php
                     $languageList = listLanguages();
                     if(count($languageList) > 0) {

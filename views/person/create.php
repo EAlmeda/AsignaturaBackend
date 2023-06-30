@@ -10,7 +10,7 @@ require_once('../../controllers/PersonController.php');
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="padding:24px">
         <?php
         $sendData = false;
         $personCreated = false;
@@ -30,7 +30,7 @@ require_once('../../controllers/PersonController.php');
                 <div class="col-12">
                     <h1>Add person</h1>
                 </div>
-                <div class="col-12">
+                <div class="col-12" style="padding:24px">
                     <form name="create-person" action="" method="POST">
                         <div class="mb-3">
                             <label form="personName" class="form-label">Name</label>

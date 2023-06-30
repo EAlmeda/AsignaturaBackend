@@ -1,38 +1,46 @@
 <?php
-    require_once('../../controllers/serieController.php');
+    require_once('../../controllers/SerieController.php');
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <title>Crear serie</title>
+        <title>Edit plataform</title>
     </head>
     <body>
         <div class="container" style="padding:24px">
             <?php
-                $serie = getMockSerie();
-                $sendData = false;
-                $serieCreated = false;
+            $idSerie = $_GET['id'];
+            // $serieObject = getSerie($idSerie);
+            $serie = getMockSerie();
+    
+            $sendData = false;
+            $serieEdited = false;
+            if(isset($_POST['editBtn'])) {
+                $sendData = true;
+            }
+        
+            if($sendData) {
                 if(isset($_POST['serieName'])) {
-                    $sendData = true;
+                    // $serieEdited = updateSerie($idSerie, $_POST['serieName'], $_POST['seriePlatforms'], $_POST['serieDirects'], $_POST['serieActors'], $_POST['serieAudios'],$_POST['serieCaptions']);
                 }
-                if($sendData) {
-                    if(isset($_POST['serieName'])) {
-                        // $serieCreated = storeSerie($_POST['serieName'], $_POST['seriePlatforms'], $_POST['serieDirects'], $_POST['serieActors'], $_POST['serieAudios'],$_POST['serieCaptions']);
-                    }
-                }
+            }
 
-                if(!$sendData) {
-            ?>
-            <div class="row">
-                <div class="col-12">
-                    <h1>Add serie</h1>
+            if(!$sendData) {
+                ?>
+                <div class="row">
+                    <div class="col-12">
+                        <h1>Edit serie</h1>
+                    </div>
                 </div>
                 <div class="col-12" style="padding:24px">
-                    <form name="create-serie" action="" method="POST">
+                    <form name="create_serie" action="" method="POST">
                         <div class="mb-3">
-                            <label form="serieName" class="form-label">Serie name</label>
-                            <input id="serieName" name="serieName" type="text" placeholder="Introduce el nombre de la serie" class="form-control" required/>
+                            <label for="serieName" class="form-label">Serie name</label>
+                            <input id="serieName" name="serieName" type="text"
+                            placeholder="Introduce a new name for the serie" class="form-control"
+                            required value="<?php if(isset($serie)) echo $serie->getName(); ?>"/>
+                            <input type="hidden" name="serieId" value="<?php echo $idSerie; ?>"/>
                         </div>
                         <div class="mb-3">
                             <label form="seriePlatform" class="form-label">Serie platform</label>
@@ -43,12 +51,12 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                                     <?php foreach ($serie->getPlatforms() as $platform) { ?>
-                                    <li>
-                                        <a href="#" class="dropdown-item">
-                                            <input type="checkbox" name="director" value="<?php echo $platform->getId() ?>"> <?php echo $platform->getName() ?>
-                                        </a>
-                                    </li>
-                                    <?php } ?>
+                                        <li>
+                                            <a href="#" class="dropdown-item">
+                                                <input type="checkbox" name="director" value="<?php echo $platform->getId() ?>"> <?php echo $platform->getName() ?>
+                                            </a>
+                                        </li>
+                                        <?php } ?>
                                 </ul>
                             </div>
                         </div>
@@ -110,49 +118,30 @@
                             <!-- <input id="serieAudioLanguage" name="serieAudioLanguage" type="text" placeholder="Introduce el idioma del audio" class="form-control"/> -->
                         </div>
                         <div class="mb-3">
-                            <label form="serieCaptionLanguage" class="form-label">Caption language</label>
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Select audio languages
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                    <?php foreach ($serie->getCaptionLanguage() as $caption) { ?>
-                                    <li>
-                                        <a href="#" class="dropdown-item">
-                                            <input type="checkbox" name="caption" value="<?php echo $caption->getId() ?>"> <?php echo $caption->getName() ?>
-                                        </a>
-                                    </li>
-                                    <?php } ?>
-                                </ul>
-                            </div>
-                            <!-- <input id="serieTitle" name="serieTitle" type="text" placeholder="Introduce el nombre de la serie" class="form-control"/> -->
-                        </div>
-                        <input type="submit" value="Create" class="btn btn-info" name="createBtn"/>
+                        
+                        <input type="submit" value="Edit" class="btn btn-info" name="editBtn"/>
                     </form>
                 </div>
             </div>
             <?php 
-                } else {
-                    if($serieCreated) {
-                        ?>
-                    <div class="row">
-                        <div class="alert alert-success" role="alert">
-                            Serie created successfully.<br><a href="list.php">Go back to the list of platforms.</a>
-                        </div>
-                    </div>
-                    <?php
-                    } else {
-                        ?>
-                    <div class="row">
-                        <div class="alert alert-danger" role="alert">
-                            The serie has not been edited correctly. <br><a href="create.php">Try it again.</a>
-                        </div>
-                    </div>
-                    <?php
-                    }
-                }
+        } else {
+            if($serieEdited) {
                 ?>
-        </div>
-    </body> 
+                <div class="row">
+                    <div class="alert alert-success" role="alert">
+                        Serie edited successfully.<br><a href="list.php">Go back to the list of series.</a>
+                    </div>
+                </div>
+                <?php 
+            } else {
+                ?>
+            <div class="row">
+                <div class="alert alert-danger" role="alert">
+                    The serie has not been edited correctly.<br><a href="edit.php?id=<?php echo $idSerie;?>">Try it again.</a>
+                </div>
+            </div>
+            <?php
+            }
+        } ?>
+    </body>
 </html>

@@ -8,7 +8,7 @@
         <title>Edit plataform</title>
     </head>
     <body>
-        <div class="container">
+        <div class="container" style="padding:24px">
             <?php
             $idPlatform = $_GET['id'];
             $platformObject = getPlatform($idPlatform);
@@ -32,7 +32,7 @@
                         <h1>Edit plataform</h1>
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-12" style="padding:24px">
                     <form name="create_platform" action="" method="POST">
                         <div class="mb-3">
                             <label for="platformName" class="form-label">Platform name</label>

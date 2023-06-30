@@ -304,11 +304,51 @@ class Serie
 		return $serieObject;
 	}
 
-	public static function insert($name)
+	public static function insert($id, $name, $platforms,  $directs, $acts, $audios, $captions)
 	{
 		$mysqli = Db::initConnectionDb();
 
 		$result = $mysqli->query("INSERT INTO SERIE (name) VALUES ('$name')");
+		if(!$result) return $result;
+
+		//Insert relationships
+		foreach ($platforms as $platform_id){
+			$result = $result ? $mysqli->query("INSERT INTO ACTS (platform_id, serie_id) VALUES ('$platform_id', '$id')") : false;
+			if(!$result) return $result;
+		}
+		foreach ($directs as $direc_id){
+			$result = $result ? $mysqli->query("INSERT INTO DIRECTS (person_id, serie_id) VALUES ('$direc_id', '$id')") : false;
+			if(!$result) return $result;
+		}
+		foreach ($acts as $act_id){
+			$result = $result ? $mysqli->query("INSERT INTO ACTS (person_id, serie_id) VALUES ('$act_id', '$id')") : false;
+			if(!$result) return $result;
+		}
+		foreach ($audios as $audio_id){
+			$result = $result ? $mysqli->query("INSERT INTO HAVE_AUDIO (language_id, serie_id) VALUES ('$audio_id', '$id')") : false;
+			if(!$result) return $result;
+		}
+		
+		foreach ($captions as $caption_id){
+			$result = $result ? $mysqli->query("INSERT INTO HAVE_CAPTIONS (language_id, serie_id) VALUES ('$caption_id', '$id')") : false;
+			if(!$result) return $result;
+		}
+		
+		
+		$mysqli->close();
+
+		return $result;
+	}
+
+	public static function update($id, $name, $platforms,  $directs, $acts, $audios, $captions)
+	{
+		$mysqli = Db::initConnectionDb();
+
+		$result = $mysqli->query("UPDATE SERIE SET name=$name where id='$id'");
+		if(!$result) return $result;
+
+		//Update relationships
+		
 		$mysqli->close();
 
 		return $result;
@@ -317,6 +357,18 @@ class Serie
 	public static function delete($id){
         
         $mysqli = Db::initConnectionDb();
+
+		//Delete dependencies
+		$result = $mysqli->query("DELETE FROM BELONGS WHERE serie_id='$id'");
+		if(!$result) return $result;
+		$result = $result ? $mysqli->query("DELETE FROM DIRECTS WHERE serie_id='$id'") : false;
+		if(!$result) return $result;
+		$result = $result ? $mysqli->query("DELETE FROM ACTS WHERE serie_id='$id'") : false;
+		if(!$result) return $result;
+		$result = $result ? $mysqli->query("DELETE FROM HAVE_AUDIO WHERE serie_id='$id'") : false;
+		if(!$result) return $result;
+		$result = $result ? $mysqli->query("DELETE FROM HAVE_CAPTIONS WHERE serie_id='$id'") : false;
+		if(!$result) return $result;
 
         $result = $mysqli->query("DELETE FROM SERIE WHERE id='$id'");
         $mysqli->close();

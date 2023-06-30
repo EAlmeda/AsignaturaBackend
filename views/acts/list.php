@@ -8,13 +8,13 @@
         <title>List of actors</title>
     </head>
     <body>
-        <div class="container">
+        <div class="container" style="padding:24px">
             <div class="row">
                 <h1>List of actors</h1>
-                <div class="col-6">
+                <div class="col-6" style="padding: 8px">
                     <a class="btn btn-info" href="../person/create.php">+ Add person</a>
                 </div>
-                <div class="col-12">
+                <div class="col-12" style="padding:24px">
                     <?php
                     $actorsList = listActors();
                     if(count($actorsList) > 0) {

@@ -10,13 +10,13 @@ require_once('../../controllers/PlatformController.php');
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="padding:24px">
         <div class="row">
             <h1>List of platforms</h1>
-            <div class="col-6">
+            <div class="col-6" style="padding: 8px">
                 <a class="btn btn-info" href="create.php">+ Add plataform</a>
             </div>
-            <div class="col-12">
+            <div class="col-12" style="padding:24px">
                 <?php
                 $platformList = listPlatforms();
                 if (count($platformList) > 0) {

@@ -10,7 +10,7 @@ require_once('../../controllers/LanguageController.php');
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="padding:24px">
         <?php
         $idLanguage = $_GET['id'];
         $languageObject = getLanguageData($idLanguage);
@@ -34,7 +34,7 @@ require_once('../../controllers/LanguageController.php');
                     <h1>Edit language</h1>
                 </div>
             </div>
-            <div class="col-12">
+            <div class="col-12" style="padding:24px">
                 <form name="create_language" action="" method="POST">
                     <input type="hidden" name="languageId" value="<?php echo $idLanguage; ?>" />
 

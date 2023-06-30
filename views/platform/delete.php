@@ -8,7 +8,7 @@
         <title>Delete plataform</title>
     </head>
     <body>
-        <div class="container">
+        <div class="container" style="padding:24px">
             <?php 
             $idPlatform = $_POST['platformId'];
             $platformDeleted = deletePlatform($idPlatform);

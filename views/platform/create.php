@@ -8,7 +8,7 @@
         <title>Add plataform</title>
     </head>
     <body>
-        <div class="container">
+        <div class="container" style="padding:24px">
             <?php
                 $sendData = false;
                 $platformCreated = false;
@@ -28,7 +28,7 @@
                 <div class="col-12">
                     <h1>Add plataform</h1>
                 </div>
-                <div class="col-12">
+                <div class="col-12" style="padding:24px">
                     <form name="create-platform" action="" method="POST">
                         <div class="mb-3">
                             <label form="platformName" class="form-label">Platform name</label>

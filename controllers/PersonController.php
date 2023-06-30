@@ -54,3 +54,16 @@ function deletePerson($personId)
 
     return $personDeleted;
 }
+
+function updatePerson($personId, $personName, $personSurname, $personBirthDate, $personNationality)
+{
+    $personUpdated = false;
+    if (getPerson($personId)){
+        if (Person::update($personId, $personName, $personSurname, $personBirthDate, $personNationality)){
+            $personUpdated = true;
+        }
+    }
+
+    return $personUpdated;
+    
+}

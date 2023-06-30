@@ -171,4 +171,18 @@ class Person
 
         return $result;
     }
+
+    public static function update($id, $name, $surname, $birth_date, $nationality)
+    {
+
+        $mysqli = Db::initConnectionDb();
+        $formatted_birth_date = date("d/m/Y", strtotime($birth_date));  
+        $formatted_birth_date = new DateTime($formatted_birth_date);
+        $sql_birth_date = $formatted_birth_date->format('Y-m-d');
+        
+        $result = $mysqli->query("UPDATE PERSON SET name='$name', surname='$surname', birth_date='$sql_birth_date', nationality='$nationality' where id='$id'");
+        $mysqli->close();
+
+        return $result;
+    }
 }

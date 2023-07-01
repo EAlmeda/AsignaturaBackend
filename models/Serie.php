@@ -304,16 +304,17 @@ class Serie
 		return $serieObject;
 	}
 
-	public static function insert($id, $name, $platforms,  $directs, $acts, $audios, $captions)
+	public static function insert($name, $platforms,  $directs, $acts, $audios, $captions)
 	{
 		$mysqli = Db::initConnectionDb();
 
 		$result = $mysqli->query("INSERT INTO SERIE (name) VALUES ('$name')");
+		$id = $mysqli->insert_id;
 		if(!$result) return $result;
 
 		//Insert relationships
 		foreach ($platforms as $platform_id){
-			$result = $result ? $mysqli->query("INSERT INTO ACTS (platform_id, serie_id) VALUES ('$platform_id', '$id')") : false;
+			$result = $result ? $mysqli->query("INSERT INTO BELONGS (platform_id, serie_id) VALUES ('$platform_id', '$id')") : false;
 			if(!$result) return $result;
 		}
 		foreach ($directs as $direc_id){

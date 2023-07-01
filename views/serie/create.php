@@ -75,7 +75,7 @@ require_once('../../controllers/LanguageController.php');
                         <div class="mb-3">
                             <label form="seriePlatform" class="form-label">Serie platform</label>
                             <div class="dropdown ">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Select platforms
                                     <span class="caret"></span>
                                 </button>
@@ -94,7 +94,7 @@ require_once('../../controllers/LanguageController.php');
                         <div class="mb-3">
                             <label form="serieDirector" class="form-label">Serie directors</label>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Select directors
                                     <span class="caret"></span>
                                 </button>
@@ -113,7 +113,7 @@ require_once('../../controllers/LanguageController.php');
                         <div class="mb-3">
                             <label form="serieActors" class="form-label">Serie actors</label>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Select actors
                                     <span class="caret"></span>
                                 </button>
@@ -132,7 +132,7 @@ require_once('../../controllers/LanguageController.php');
                         <div class="mb-3">
                             <label form="serieAudioLanguage" class="form-label">Audio language</label>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Select audio languages
                                     <span class="caret"></span>
                                 </button>
@@ -150,7 +150,7 @@ require_once('../../controllers/LanguageController.php');
                         <div class="mb-3">
                             <label form="serieCaptionLanguage" class="form-label">Caption language</label>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Select audio languages
                                     <span class="caret"></span>
                                 </button>
@@ -165,7 +165,7 @@ require_once('../../controllers/LanguageController.php');
                                 </ul>
                             </div>
                         </div>
-                        <input type="submit" value="Create" class="btn btn-info" name="createBtn" />
+                        <input type="submit" value="Create" class="btn btn-primary" name="createBtn" />
                     </form>
                 </div>
             </div>

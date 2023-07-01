@@ -192,7 +192,7 @@ class Serie
 		$this->setActors($actors);
 	}
 
-	
+
 	/**
 	 * Establece los directores obteniendolos de base de datos
 	 */
@@ -296,6 +296,11 @@ class Serie
 		$serieObject = null;
 		foreach ($serieData as $serieItem) {
 			$serieObject = new Serie($serieItem['id'], $serieItem['name']);
+			$serieObject->setActorsDB($serieObject->getId()); //Actores
+			$serieObject->setAudiosDB($serieObject->getId()); //Audios
+			$serieObject->setPlatformsDB($serieObject->getId()); //Plataformas
+			$serieObject->setCaptionsDB($serieObject->getId()); //Subtitulos
+			$serieObject->setDirectorsDB($serieObject->getId()); //Directores
 			break;
 		}
 
@@ -304,76 +309,210 @@ class Serie
 		return $serieObject;
 	}
 
+	public function havePlatform($platform)
+	{
+		foreach ($this->getPlatforms() as $compare) {
+			if ($compare->getId() == $platform->getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function haveActor($actor)
+	{
+		foreach ($this->getActors() as $compare) {
+			if ($compare->getId() == $actor->getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function haveDirector($director)
+	{
+		foreach ($this->getDirectors() as $compare) {
+			if ($compare->getId() == $director->getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function haveAudio($audio)
+	{
+		foreach ($this->getAudioLanguage() as $compare) {
+			if ($compare->getId() == $audio->getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function haveCaption($caption)
+	{
+		foreach ($this->getCaptionLanguage() as $compare) {
+			if ($compare->getId() == $caption->getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static function insert($name, $platforms,  $directs, $acts, $audios, $captions)
 	{
 		$mysqli = Db::initConnectionDb();
 
 		$result = $mysqli->query("INSERT INTO SERIE (name) VALUES ('$name')");
 		$id = $mysqli->insert_id;
-		if(!$result) return $result;
+		if (!$result) return $result;
 
 		//Insert relationships
-		foreach ($platforms as $platform_id){
+		foreach ($platforms as $platform_id) {
 			$result = $result ? $mysqli->query("INSERT INTO BELONGS (platform_id, serie_id) VALUES ('$platform_id', '$id')") : false;
-			if(!$result) return $result;
+			if (!$result) return $result;
 		}
-		foreach ($directs as $direc_id){
+		foreach ($directs as $direc_id) {
 			$result = $result ? $mysqli->query("INSERT INTO DIRECTS (person_id, serie_id) VALUES ('$direc_id', '$id')") : false;
-			if(!$result) return $result;
+			if (!$result) return $result;
 		}
-		foreach ($acts as $act_id){
+		foreach ($acts as $act_id) {
 			$result = $result ? $mysqli->query("INSERT INTO ACTS (person_id, serie_id) VALUES ('$act_id', '$id')") : false;
-			if(!$result) return $result;
+			if (!$result) return $result;
 		}
-		foreach ($audios as $audio_id){
+		foreach ($audios as $audio_id) {
 			$result = $result ? $mysqli->query("INSERT INTO HAVE_AUDIO (language_id, serie_id) VALUES ('$audio_id', '$id')") : false;
-			if(!$result) return $result;
+			if (!$result) return $result;
 		}
-		
-		foreach ($captions as $caption_id){
+
+		foreach ($captions as $caption_id) {
 			$result = $result ? $mysqli->query("INSERT INTO HAVE_CAPTIONS (language_id, serie_id) VALUES ('$caption_id', '$id')") : false;
-			if(!$result) return $result;
+			if (!$result) return $result;
 		}
-		
-		
+
+
 		$mysqli->close();
 
 		return $result;
 	}
 
-	public static function update($id, $name, $platforms,  $directs, $acts, $audios, $captions)
+	private function contain($array, $id)
+	{
+		foreach ($array as $compare) {
+			if ($compare->getId() == $id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private function idArrayContain($array, $id)
+	{
+		foreach ($array as $compare) {
+			if ($compare == $id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function update($id, $name, $newPlatforms,  $newDirectors, $newActors, $newAudios, $newCaptions)
 	{
 		$mysqli = Db::initConnectionDb();
 
-		$result = $mysqli->query("UPDATE SERIE SET name=$name where id='$id'");
-		if(!$result) return $result;
+		$result = $mysqli->query("UPDATE SERIE SET name='$name' where id='$id'");
+		if (!$result) return $result;
 
-		//TODO: Update relationships
-		
+		//Actualizar plataformas
+		foreach ($this->getPlatforms() as $seriePlatform) {
+			if (!$this->idArrayContain($newPlatforms, $seriePlatform->getId())) {
+				$platformId = $seriePlatform->getId();
+				$mysqli->query("delete from belongs where platform_id='$platformId' and serie_id='$id'");
+			}
+		}
+		foreach ($newPlatforms as $newPlatform) {
+			if (!$this->contain($this->getPlatforms(), $newPlatform)) {
+				$mysqli->query("insert into belongs(serie_id,platform_id) values('$id','$newPlatform')");
+			}
+		}
+
+		//Actualizar directores
+		foreach ($this->getDirectors() as $serieDirector) {
+			if (!$this->idArrayContain($newDirectors, $serieDirector->getId())) {
+				$directorId = $serieDirector->getId();
+				$mysqli->query("delete from directs where person_id='$directorId' and serie_id='$id'");
+			}
+		}
+		foreach ($newDirectors as $newDirector) {
+			if (!$this->contain($this->getDirectors(), $newDirector)) {
+				$mysqli->query("insert into directs(serie_id,person_id) values('$id','$newDirector')");
+			}
+		}
+
+		//Actualizar actores
+		foreach ($this->getActors() as $serieActor) {
+			if (!$this->idArrayContain($newActors, $serieActor->getId())) {
+				$actorId = $serieActor->getId();
+				$mysqli->query("delete from acts where person_id='$actorId' and serie_id='$id'");
+			}
+		}
+		foreach ($newActors as $newActor) {
+			if (!$this->contain($this->getActors(), $newActor)) {
+				$mysqli->query("insert into acts(serie_id,person_id) values('$id','$newActor')");
+			}
+		}
+
+		//Actualizar audio
+		foreach ($this->getAudioLanguage() as $serieAudio) {
+			if (!$this->idArrayContain($newAudios, $serieAudio->getId())) {
+				$audioId = $serieAudio->getId();
+				$mysqli->query("delete from have_audio where language_id='$audioId' and serie_id='$id'");
+			}
+		}
+		foreach ($newAudios as $newAudio) {
+			if (!$this->contain($this->getAudioLanguage(), $newAudio)) {
+				$mysqli->query("insert into have_audio(serie_id,language_id) values('$id','$newAudio')");
+			}
+		}
+
+		//Actulizar subtitulos
+		foreach ($this->getCaptionLanguage() as $serieCaption) {
+			if (!$this->idArrayContain($newCaptions, $serieCaption->getId())) {
+				$captionId = $serieCaption->getId();
+				$mysqli->query("delete from have_captions where language_id='$captionId' and serie_id='$id'");
+			}
+		}
+		foreach ($newCaptions as $newCaption) {
+			if (!$this->contain($this->getCaptionLanguage(), $newCaption)) {
+				$mysqli->query("insert into have_captions(serie_id,language_id) values('$id','$newCaption')");
+			}
+		}
+
 		$mysqli->close();
 
 		return $result;
 	}
 
-	public static function delete($id){
-        
-        $mysqli = Db::initConnectionDb();
+	public static function delete($id)
+	{
+
+		$mysqli = Db::initConnectionDb();
 
 		//Delete dependencies
 		$result = $mysqli->query("DELETE FROM BELONGS WHERE serie_id='$id'");
-		if(!$result) return $result;
+		if (!$result) return $result;
 		$result = $result ? $mysqli->query("DELETE FROM DIRECTS WHERE serie_id='$id'") : false;
-		if(!$result) return $result;
+		if (!$result) return $result;
 		$result = $result ? $mysqli->query("DELETE FROM ACTS WHERE serie_id='$id'") : false;
-		if(!$result) return $result;
+		if (!$result) return $result;
 		$result = $result ? $mysqli->query("DELETE FROM HAVE_AUDIO WHERE serie_id='$id'") : false;
-		if(!$result) return $result;
+		if (!$result) return $result;
 		$result = $result ? $mysqli->query("DELETE FROM HAVE_CAPTIONS WHERE serie_id='$id'") : false;
-		if(!$result) return $result;
+		if (!$result) return $result;
 
-        $result = $mysqli->query("DELETE FROM SERIE WHERE id='$id'");
-        $mysqli->close();
+		$result = $mysqli->query("DELETE FROM SERIE WHERE id='$id'");
+		$mysqli->close();
 
-        return $result;
-    }
+		return $result;
+	}
 }

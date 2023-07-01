@@ -21,7 +21,7 @@ function listSeries()
         );
         array_push($serieObjectArray, $serieObject);
     }
-    
+
     return $serieObjectArray;
 }
 
@@ -61,9 +61,9 @@ function getSerie($serieId)
 function updateSerie($serieId, $serieName, $seriePlatforms,  $serieDirects, $serieActs, $serieAudios, $serieCaptions)
 {
     $serieEdited = false;
-
-    if (Serie::getById($serieId)) {
-        if (Serie::update($serieId, $serieName, $seriePlatforms,  $serieDirects, $serieActs, $serieAudios, $serieCaptions)) {
+    $serie = Serie::getById($serieId);
+    if ($serie) {
+        if ($serie->update($serieId, $serieName, $seriePlatforms,  $serieDirects, $serieActs, $serieAudios, $serieCaptions)) {
             $serieEdited = true;
         }
     }

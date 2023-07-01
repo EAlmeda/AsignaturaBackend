@@ -29,7 +29,7 @@ require_once('../../controllers/PersonController.php');
                 $name = parse_input($_POST["personName"]);
                 // check if name only contains letters and whitespace
                 if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-                $nameErr = "* Only letters and white space allowed";
+                $nameErr = "* Only letters and white space allowed for name";
                 }
             }
             if (empty($_POST["personSurname"])) {
@@ -38,16 +38,16 @@ require_once('../../controllers/PersonController.php');
                 $surname = parse_input($_POST["personSurname"]);
                 // check if surname only contains letters and whitespace
                 if (!preg_match("/^[a-zA-Z-' ]*$/",$surname)) {
-                $surnameErr = "* Only letters and white space allowed";
+                $surnameErr = "* Only letters and white space allowed for surname";
                 }
             }
-            if (empty($_POST["personBirthdate"])) {
+            if (empty($_POST["personBirthDate"])) {
                 $birthdateErr = "* BirthDate is required";
             } else {
-                $birthdate = parse_input($_POST["personBirthdate"]);
+                $birthdate = parse_input($_POST["personBirthDate"]);
                 // check if birthdate only contains letters and whitespace
-                if (!preg_match("/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/",$birthdate)) {
-                $birthdateErr = "* Only dd/mm/YYYY format allowed";
+                if (!preg_match("/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/",$birthdate)) {
+                $birthdateErr = "* Only dd/mm/YYYY format allowed for birthdate";
                 }
             }
             if (empty($_POST["personNationality"])) {
@@ -56,7 +56,7 @@ require_once('../../controllers/PersonController.php');
                 $nationality = parse_input($_POST["personNationality"]);
                 // check if nationality only contains letters and whitespace
                 if (!preg_match("/^[a-zA-Z-' ]*$/",$nationality)) {
-                $nationalityErr = "* Only letters and white space allowed";
+                $nationalityErr = "* Only letters and white space allowed for nationality";
                 }
             }
             if (
@@ -123,7 +123,13 @@ require_once('../../controllers/PersonController.php');
     ?>
         <div class="row">
             <div class="alert alert-danger" role="alert">
-                The person has not been edited correctly.<br><a href="edit.php?id=<?php echo $idPerson; ?>">Try it again.</a>
+                The person has not been edited correctly.<br>
+                Causes:<br>
+                <?php echo $nameErr; ?>
+                <?php echo $surnameErr; ?>
+                <?php echo $birthdateErr; ?>
+                <?php echo $nationalityErr; ?>
+                <a href="edit.php?id=<?php echo $idPerson; ?>">Try it again.</a>
             </div>
         </div>
 <?php

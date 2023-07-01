@@ -5,7 +5,7 @@ require_once('../../controllers/PersonController.php');
 <html>
 
 <head>
-    <div th:replace="head"></div>
+    <?php include '../../head.html'; ?>
     <title>Edit person</title>
 </head>
 

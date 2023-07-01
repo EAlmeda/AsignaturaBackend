@@ -14,8 +14,6 @@ class Person
         $this->id = $id;
         $this->name = $name;
         $this->surname = $surname;
-        if($id>21)
-        echo($birthdate);
         $this->birthdate = date("d/m/Y", strtotime($birthdate));
         $this->nationality = $nationality;
     }
@@ -43,7 +41,8 @@ class Person
      * @return mixed
      */
     public function getBirthdate()
-    {
+    {   
+        # TODO Correctly parse for the correct visualization of data in list view.
         return $this->birthdate;
     }
 

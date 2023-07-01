@@ -1,78 +1,53 @@
 <?php
 require_once('../../models/serie.php');
 
-
-function getMockSerie() {
-    $platforms = [];
-    array_push($platforms, new Platform(1, "Amazon Prime Video"));
-    array_push($platforms, new Platform(2, "Netflix"));
-    $directors = [];
-    array_push($directors, new Person(2, "Charlie", "Brooker", 1996-04-16, "British"));
-    array_push($directors, new Person(2, "Charlie", "Brooker", 1996-04-16, "British"));
-    $actors = [];
-    array_push($actors, new Person(2, "Charlie", "Brooker", 1996-04-16, "British"));
-    array_push($actors, new Person(2, "Charlie", "Brooker", 1996-04-16, "British"));
-    $audios = [];
-    array_push($audios, new Language(1, "English", "EN"));
-    $captions = [];
-    array_push($captions, new Language(2, "Spanish", "ES"));
-
-    $serieObject = new Serie(
-        1,
-        "Casa de papel",
-        $platforms,
-        $directors,
-        $actors,
-        $audios,
-        $captions,
-    );
-
-    return $serieObject;
-}
 /**
  * Metodo que lista las series
  */
 function listSeries()
 {
-    // $serieList = Serie::getAll();
+    $serieList = Serie::getAll();
 
     $serieObjectArray = [];
-    // foreach ($serieList as $serieItem) {
-    //     $serieObject = new Serie(
-    //         $serieItem->getId(),
-    //         $serieItem->getName(),
-    //         $serieItem->getPlatforms(),
-    //         $serieItem->getDirectors(),
-    //         $serieItem->getActors(),
-    //         $serieItem->getAudioLanguage(),
-    //         $serieItem->getCaptionLanguage()
-    //     );
-    //     array_push($serieObjectArray, $serieObject);
-    // }
+    foreach ($serieList as $serieItem) {
+        $serieObject = new Serie(
+            $serieItem->getId(),
+            $serieItem->getName(),
+            $serieItem->getPlatforms(),
+            $serieItem->getDirectors(),
+            $serieItem->getActors(),
+            $serieItem->getAudioLanguage(),
+            $serieItem->getCaptionLanguage()
+        );
+        array_push($serieObjectArray, $serieObject);
+    }
     
-    array_push($serieObjectArray, getMockSerie());
+    array_push($serieObjectArray, $serieObject);
 
     return $serieObjectArray;
 }
 
 
+/**
+ * Metodo que guarda una serie
+ */
 function storeSerie($serieName, $seriePlatforms,  $serieDirects, $serieActs, $serieAudios, $serieCaptions)
 {
     $serie = Serie::getByName($serieName);
 
     if (isset($serie)) {
-        echo ('El nombre de la serie ya existe');
+        echo ('The serie name already exists.');
         return false;
     }
 
-    if (!isset($serieName)) {
-        echo ('Hay algún campo vacío');
+    if (!isset($serieName) || !isset($seriePlatforms) || !isset($serieDirects) || !isset($serieActs) || !isset($serieAudios) || !isset($serieCaptions)) {
+        echo ('There is any empty field.');
         return false;
     // }
     // if (Serie::insert($serie->getId(), $serieName, $seriePlatforms,  $serieDirects, $serieActs, $serieAudios, $serieCaptions)) {
     //     return true;
     } else {
-        echo ('Ha ocurrido un error añadiendo la serie a BD');
+        echo ('An error occurred adding the serie to DB');
         return false;
     }
 }
@@ -82,6 +57,9 @@ function getSerie($serieId)
     return Serie::getById($serieId);
 }
 
+/**
+ * Metodo que actualiza una serie
+ */
 function updateSerie($serieId, $serieName, $seriePlatforms,  $serieDirects, $serieActs, $serieAudios, $serieCaptions)
 {
     $serieEdited = false;
@@ -95,6 +73,9 @@ function updateSerie($serieId, $serieName, $seriePlatforms,  $serieDirects, $ser
     return $serieEdited;
 }
 
+/**
+ * Metodo que elimina una serie
+ */
 function deleteSerie($serieId)
 {
 

@@ -21,6 +21,9 @@ function getLanguageData($languageId){
     return Language::getById($languageId);
 }
 
+/**
+ * Metodo que guarda un idioma
+ */
 function storeLanguage($languageName, $languageIso)
 {
     $language = language::getByName($languageName);
@@ -30,7 +33,7 @@ function storeLanguage($languageName, $languageIso)
         return false;
     }
 
-    if (!isset($languageName)) {
+    if (!isset($languageName) || !isset($languageIso)) {
         echo ('There is any empty field.');
         return false;
     }
@@ -42,10 +45,11 @@ function storeLanguage($languageName, $languageIso)
     }
 }
 
+/**
+ * Metodo que actualiza un idioma
+ */
 function updateLanguage($languageId, $languageName, $languageIso)
 {
-    echo($languageName);
-    echo($languageIso);
     $languageEdited = false;
 
     if (language::getById($languageId)) {
@@ -57,10 +61,11 @@ function updateLanguage($languageId, $languageName, $languageIso)
     return $languageEdited;
 }
 
+/**
+ * Metodo que elimina un idioma
+ */
 function deleteLanguage($languageId)
 {
-    $mysqli = Db::initConnectionDb();
-
     $languageDeleted = false;
 
     if (Language::getById($languageId)) {
@@ -68,8 +73,6 @@ function deleteLanguage($languageId)
             $languageDeleted = true;
         }
     }
-
-    $mysqli->close();
 
     return $languageDeleted;
 }

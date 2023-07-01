@@ -5,7 +5,7 @@ require_once('../../controllers/LanguageController.php');
 <html>
 
 <head>
-    <div th:replace="head"></div>
+    <?php include '../../head.html'; ?>
     <title>Edit language</title>
 </head>
 

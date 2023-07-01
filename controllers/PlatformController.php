@@ -22,18 +22,18 @@ function storePlatform($platformName)
     $platform = Platform::getByName($platformName);
 
     if (isset($platform)) {
-        echo ('El nombre de la plataforma ya existe');
+        echo ('The platform name already exists.');
         return false;
     }
 
     if (!isset($platformName)) {
-        echo ('Hay algún campo vacío');
+        echo ('There is any empty field.');
         return false;
     }
     if (Platform::insert($platformName)) {
         return true;
     } else {
-        echo ('Ha ocurrido un error añadiendo la plataforma a BD');
+        echo ('An error occurred adding the platform to DB');
         return false;
     }
 }

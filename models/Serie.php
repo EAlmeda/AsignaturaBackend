@@ -347,7 +347,7 @@ class Serie
 		$result = $mysqli->query("UPDATE SERIE SET name=$name where id='$id'");
 		if(!$result) return $result;
 
-		//Update relationships
+		//TODO: Update relationships
 		
 		$mysqli->close();
 

@@ -27,12 +27,13 @@ function listPeople()
 function storePerson($name, $surname, $birthdate, $nationality)
 {
     if (!isset($name) || !isset($surname) || !isset($birthdate) || !isset($nationality)) {
+        echo ('There is any empty field.');
         return false;
     }
     if (Person::insert($name, $surname, $birthdate, $nationality)) {
         return true;
     } else {
-        echo ('Ha ocurrido un error añadiendo la persona a BD');
+        echo ('An error occurred adding the person to DB');
         return false;
     }
 }

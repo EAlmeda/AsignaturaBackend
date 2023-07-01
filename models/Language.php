@@ -97,6 +97,28 @@ class Language
         return $languageObject;
     }
 
+    public static function hasAudiosLinked($id)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $hasAudios = $mysqli->query("SELECT COUNT(*) FROM HAVE_AUDIO WHERE language_id='$id'");
+    
+        $mysqli->close();
+
+        return $hasAudios >= 1;
+    }
+
+    public static function hasCaptionsLinked($id)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $hasCaptions = $mysqli->query("SELECT COUNT(*) FROM HAVE_CAPTIONS WHERE language_id='$id'");
+    
+        $mysqli->close();
+
+        return $hasCaptions >= 1;
+    }
+
     public static function getByName($name)
     {
         $mysqli = Db::initConnectionDb();

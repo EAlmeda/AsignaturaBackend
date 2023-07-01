@@ -99,6 +99,17 @@ class Platform
         return $platformObject;
     }
 
+    public static function hasSeriesLinked($id)
+    {
+        $mysqli = Db::initConnectionDb();
+
+        $platformData = $mysqli->query("SELECT COUNT(*) FROM BELONGS WHERE platform_id='$id'");
+        
+        $mysqli->close();
+
+        return $platformData >= 1;
+    }
+
     public static function insert($name)
     {
         $mysqli = Db::initConnectionDb();

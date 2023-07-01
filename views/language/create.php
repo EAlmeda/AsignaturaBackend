@@ -12,14 +12,37 @@
             <?php
                 $sendData = false;
                 $languageCreated = false;
-                $errorMessage='';
-                if(isset($_POST['languageName'])) {
+                $nameErr = $IsoErr = "";
+                if (empty($_POST["languageName"])) {
+                    $nameErr = "* Name is required";
+                  } else {
+                    $name = parse_input($_POST["languageName"]);
+                    // check if name only contains letters and whitespace
+                    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+                      $nameErr = "* Only letters and white space allowed";
+                    }
+                }
+                if (empty($_POST["languageIso"])) {
+                    $IsoErr = "* Name is required";
+                  } else {
+                    $name = parse_input($_POST["languageIso"]);
+                    // check if name only contains letters and whitespace
+                    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+                      $IsoErr = "* Only letters and white space allowed";
+                    }
+                }
+                if(isset($_POST['languageName']) && isset($_POST['languageIso'])) {
                     $sendData = true;
                 }
-                if($sendData) {
-                    if(isset($_POST['languageName']) && isset($_POST['languageIso'])) {
-                        $languageCreated = storeLanguage($_POST['languageName'], $_POST['languageIso']);
-                    }
+                if($sendData && empty($nameErr) && empty($IsoErr)) {
+                    $languageCreated = storeLanguage($_POST['languageName'], $_POST['languageIso']);
+                }
+
+                function parse_input($data) {
+                    $data = trim($data);
+                    $data = stripslashes($data);
+                    $data = htmlspecialchars($data);
+                    return $data;
                 }
 
                 if(!$sendData) {

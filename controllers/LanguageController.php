@@ -68,7 +68,7 @@ function deleteLanguage($languageId)
 {
     $languageDeleted = false;
 
-    if (Language::getById($languageId)) {
+    if (Language::getById($languageId) && !Language::hasAudiosLinked($languageId) && !Language::hasCaptionsLinked($languageId)) {
         if (Language::delete($languageId)) {
             $languageDeleted = true;
         }

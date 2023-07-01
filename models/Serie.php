@@ -498,7 +498,6 @@ class Serie
 
 		$mysqli = Db::initConnectionDb();
 
-		//Delete dependencies
 		$result = $mysqli->query("DELETE FROM BELONGS WHERE serie_id='$id'");
 		if (!$result) return $result;
 		$result = $result ? $mysqli->query("DELETE FROM DIRECTS WHERE serie_id='$id'") : false;

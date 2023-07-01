@@ -37,7 +37,7 @@ require_once('../../controllers/PersonController.php');
             $birthdateErr = "* BirthDate is required";
           } else {
             $birthdate = parse_input($_POST["personBirthdate"]);
-            // check if birthdate only contains letters and whitespace
+            // check if birthdate follows dd/mm/YYYY format
             if (!preg_match("/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/",$birthdate)) {
               $birthdateErr = "* Only dd/mm/YYYY format allowed";
             }

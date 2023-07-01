@@ -22,9 +22,56 @@ require_once('../../controllers/PersonController.php');
         }
 
         if ($sendData) {
-            if (isset($_POST['personName']) && isset($_POST['personSurname']) && isset($_POST['personBirthDate']) && isset($_POST['personNationality'])) {
+            $nameErr = $surnameErr = $birthdateErr = $nationalityErr = "";
+            if (empty($_POST["personName"])) {
+                $nameErr = "* Name is required";
+            } else {
+                $name = parse_input($_POST["personName"]);
+                // check if name only contains letters and whitespace
+                if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+                $nameErr = "* Only letters and white space allowed";
+                }
+            }
+            if (empty($_POST["personSurname"])) {
+                $surnameErr = "* Surname is required";
+            } else {
+                $surname = parse_input($_POST["personSurname"]);
+                // check if surname only contains letters and whitespace
+                if (!preg_match("/^[a-zA-Z-' ]*$/",$surname)) {
+                $surnameErr = "* Only letters and white space allowed";
+                }
+            }
+            if (empty($_POST["personBirthdate"])) {
+                $birthdateErr = "* BirthDate is required";
+            } else {
+                $birthdate = parse_input($_POST["personBirthdate"]);
+                // check if birthdate only contains letters and whitespace
+                if (!preg_match("/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/",$birthdate)) {
+                $birthdateErr = "* Only dd/mm/YYYY format allowed";
+                }
+            }
+            if (empty($_POST["personNationality"])) {
+                $nationalityErr = "* Nationality is required";
+            } else {
+                $nationality = parse_input($_POST["personNationality"]);
+                // check if nationality only contains letters and whitespace
+                if (!preg_match("/^[a-zA-Z-' ]*$/",$nationality)) {
+                $nationalityErr = "* Only letters and white space allowed";
+                }
+            }
+            if (
+                empty($nameErr) && empty($surnameErr) && empty($birthdateErr) && empty($nationalityErr)
+            ) {
                 $personEdited = updatePerson($_POST['personId'], $_POST['personName'], $_POST['personSurname'], $_POST['personBirthDate'], $_POST['personNationality']);
             }
+            
+        }
+
+        function parse_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
         }
 
         if (!$sendData) {

@@ -43,7 +43,7 @@
                                         <a class="btn btn-success" href="../person/edit.php?id=<?php echo $actor->getId();?>">Edit</a>
 
                                         <form name="delete_actor" action="../person/delete.php" method="POST" style="display: inline; margin-left:10px;">
-                                            <input type="hidden" name="actorId" value="<?php echo $actor->getId();?>" />
+                                            <input type="hidden" name="personId" value="<?php echo $actor->getId();?>" />
                                             <button type="submit" class="btn btn-danger">Delete</button>  
                                         </form>
                                     </div>

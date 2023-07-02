@@ -20,9 +20,16 @@
                   $idErr = "* Only numbers allowed";
                 }
             }
+
+            function parse_input($data) {
+                $data = trim($data);
+                $data = stripslashes($data);
+                $data = htmlspecialchars($data);
+                return $data;
+            }
     
             if (empty($idErr)) {
-                $platformDeleted = deletePlatform($idPlatform);
+                $platformDeleted = deletePlatform($id);
 
                 if($platformDeleted) {
                     ?>

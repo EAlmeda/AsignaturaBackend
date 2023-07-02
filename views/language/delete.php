@@ -21,8 +21,15 @@
                 }
             }
 
+            function parse_input($data) {
+                $data = trim($data);
+                $data = stripslashes($data);
+                $data = htmlspecialchars($data);
+                return $data;
+            }
+
             if (empty($idErr)) {
-                $languageDeleted = deleteLanguage($idLanguage);
+                $languageDeleted = deleteLanguage($id);
             }
 
             if($languageDeleted) {

@@ -45,7 +45,7 @@ require_once('../../controllers/DirectorController.php');
                                             <a class="btn btn-success" href="../person/edit.php?id=<?php echo $director->getId(); ?>">Edit</a>
 
                                             <form name="delete_director" action="../person/delete.php" method="POST" style="display: inline; margin-left:10px;">
-                                                <input type="hidden" name="directorId" value="<?php echo $director->getId(); ?>" />
+                                                <input type="hidden" name="personId" value="<?php echo $director->getId(); ?>" />
                                                 <button type="submit" class="btn btn-danger">Delete</button>
                                             </form>
                                         </div>

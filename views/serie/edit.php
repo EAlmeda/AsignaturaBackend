@@ -4,6 +4,7 @@ require_once('../../controllers/PlatformController.php');
 require_once('../../controllers/ActorController.php');
 require_once('../../controllers/DirectorController.php');
 require_once('../../controllers/LanguageController.php');
+require_once('../../controllers/PersonController.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -128,7 +129,7 @@ require_once('../../controllers/LanguageController.php');
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenu">
-                                    <?php foreach (listDirectors() as $director) { ?>
+                                    <?php foreach (listPeople() as $director) { ?>
                                         <li>
                                             <a href="#" class="dropdown-item">
                                                 <input type="checkbox" name="selectedDirectors[]" value="<?php echo $director->getId() ?>" <?php echo ($serie->haveDirector($director) == true ? 'checked' : 'o'); ?>>
@@ -148,7 +149,7 @@ require_once('../../controllers/LanguageController.php');
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenu">
-                                    <?php foreach (listActors() as $actor) { ?>
+                                    <?php foreach (listPeople() as $actor) { ?>
                                         <li>
                                             <a href="#" class="dropdown-item">
                                                 <input type="checkbox" name="selectedActors[]" value="<?php echo $actor->getId() ?>" <?php echo ($serie->haveActor($actor) == true ? 'checked' : 'o'); ?>>

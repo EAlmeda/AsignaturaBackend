@@ -11,7 +11,19 @@
         <div class="container" style="padding:24px">
             <?php 
             $idLanguage = $_POST['languageId'];
-            $languageDeleted = deleteLanguage($idLanguage);
+            if (empty($idLanguage)) {
+                $idErr = "* Id is required";
+              } else {
+                $id = parse_input($idLanguage);
+                // check if name only contains numbers
+                if (!preg_match("/^[0-9]*$/",$id)) {
+                  $idErr = "* Only numbers allowed";
+                }
+            }
+
+            if (empty($idErr)) {
+                $languageDeleted = deleteLanguage($idLanguage);
+            }
 
             if($languageDeleted) {
                 ?>

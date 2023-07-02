@@ -13,36 +13,49 @@ require_once('../../controllers/LanguageController.php');
     <div class="container" style="padding:24px">
         <?php
         $idLanguage = $_GET['id'];
-        $languageObject = getLanguageData($idLanguage);
-
-        $sendData = false;
-        $languageEdited = false;
-        if (isset($_POST['editBtn'])) {
-            $sendData = true;
+        $idErr = '';
+        if (empty($idLanguage)) {
+            $idErr = "* Name is required";
+        } else {
+            $id = parse_input($idLanguage);
+            // check if name only contains numbers
+            if (!preg_match("/^[0-9]*$/",$id)) {
+            $idErr = "* Only numbers allowed";
+            }
         }
 
-        if ($sendData) {
-            $nameErr = $IsoErr = "";
-            if (empty($_POST["languageName"])) {
-                $nameErr = "* Name is required";
-              } else {
-                $name = parse_input($_POST["languageName"]);
-                // check if name only contains letters and whitespace
-                if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-                  $nameErr = "* Only letters and white space allowed";
-                }
+        $sendData = false;
+        if (empty($idErr)) {
+            $languageObject = getLanguageData($idLanguage);
+
+            $languageEdited = false;
+            if (isset($_POST['editBtn'])) {
+                $sendData = true;
             }
-            if (empty($_POST["languageIso"])) {
-                $IsoErr = "* Name is required";
-              } else {
-                $name = parse_input($_POST["languageIso"]);
-                // check if name only contains letters and whitespace
-                if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-                  $IsoErr = "* Only letters and white space allowed";
+
+            if ($sendData) {
+                $nameErr = $isoErr = "";
+                if (empty($_POST["languageName"])) {
+                    $nameErr = "* Name is required";
+                } else {
+                    $name = parse_input($_POST["languageName"]);
+                    // check if name only contains letters and whitespace
+                    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+                    $nameErr = "* Only letters and white space allowed";
+                    }
                 }
-            }
-            if (isset($_POST['languageName']) && isset($_POST['languageIso']) && empty($nameErr) && empty($IsoErr)) {
-                $languageEdited = updateLanguage($_POST['languageId'], $_POST['languageName'], $_POST['languageIso']);
+                if (empty($_POST["languageIso"])) {
+                    $isoErr = "* ISO is required";
+                } else {
+                    $iso = parse_input($_POST["languageIso"]);
+                    // check if name only contains letters and whitespace
+                    if (!preg_match("/^[a-zA-Z-' ]{2}$/",$iso)) {
+                    $isoErr = "* Only 2 letters allowed";
+                    }
+                }
+                if (isset($_POST['languageName']) && isset($_POST['languageIso']) && empty($nameErr) && empty($isoErr)) {
+                    $languageEdited = updateLanguage($_POST['languageId'], $_POST['languageName'], $_POST['languageIso']);
+                }
             }
         }
 

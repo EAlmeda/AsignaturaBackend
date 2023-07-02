@@ -50,7 +50,7 @@ require_once('../../controllers/LanguageController.php');
                     $iso = parse_input($_POST["languageIso"]);
                     // check if name only contains letters and whitespace
                     if (!preg_match("/^[a-zA-Z-' ]{2}$/",$iso)) {
-                    $isoErr = "* Only 2 letters allowed";
+                    $isoErr = "* Minimum and maximum of 2 letters for ISO code.";
                     }
                 }
                 if (isset($_POST['languageName']) && isset($_POST['languageIso']) && empty($nameErr) && empty($isoErr)) {
@@ -104,7 +104,7 @@ require_once('../../controllers/LanguageController.php');
     ?>
         <div class="row">
             <div class="alert alert-danger" role="alert">
-                The language has not been edited correctly.<br><a href="edit.php?id=<?php echo $idLanguage; ?>">Try it again.</a>
+                The language has not been edited correctly. <?php echo $nameErr . "" . $isoErr ?><br><a href="edit.php?id=<?php echo $idLanguage; ?>">Try it again.</a>
             </div>
         </div>
 <?php

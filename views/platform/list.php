@@ -38,7 +38,7 @@ require_once('../../controllers/PlatformController.php');
                                         <div class="btn-group" role="group" aria-label="Platform">
                                             <a class="btn btn-success" href="edit.php?id=<?php echo $platform->getId(); ?>">Edit</a>
 
-                                            <form name="delete_platform" action="delete.php" method="POST" style="display: inline;">
+                                            <form name="delete_platform" action="delete.php" method="POST" style="display: inline; margin-left: 10px;">
                                                 <input type="hidden" name="platformId" value="<?php echo $platform->getId(); ?>" />
                                                 <button type="submit" class="btn btn-danger">Delete</button>
                                             </form>

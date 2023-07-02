@@ -20,9 +20,16 @@
                   $idErr = "* Only numbers allowed";
                 }
             }
+
+            function parse_input($data) {
+                $data = trim($data);
+                $data = stripslashes($data);
+                $data = htmlspecialchars($data);
+                return $data;
+            }
     
             if (empty($idErr)) {
-                $platformDeleted = deletePlatform($idPlatform);
+                $platformDeleted = deletePlatform($id);
 
                 if($platformDeleted) {
                     ?>
@@ -35,7 +42,7 @@
                 } else {
                     ?>
                     <div class="row">
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-warning" role="alert">
                             The platform has not been deleted correctly.<br><a href="list.php">Try it again.</a>
                         </div>
                     </div>

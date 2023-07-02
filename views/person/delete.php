@@ -23,8 +23,15 @@ require_once('../../controllers/PersonController.php');
             }
         }
 
+        function parse_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+
         if (empty($idErr)) {
-            $personDeleted = deletePerson($idPerson);
+            $personDeleted = deletePerson($id);
 
             if ($personDeleted) {
                 ?>

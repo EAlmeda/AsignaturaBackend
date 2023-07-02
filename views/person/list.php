@@ -39,10 +39,10 @@
                                 <td><?php echo $person->getBirthDate(); ?></td>
                                 <td><?php echo $person->getNationality(); ?></td>
                                 <td>
-                                    <div class="btn-group" role="group" aria-label="person">
+                                    <div class="btn-group" role="group" aria-label="Person">
                                         <a class="btn btn-success" href="edit.php?id=<?php echo $person->getId();?>">Edit</a>
-                                        &nbsp:&nbsp;
-                                        <form name="delete_person" action="delete.php" method="POST" style="display: inline;">
+                                       
+                                        <form name="delete_person" action="delete.php" method="POST" style="display: inline;margin-left: 10px">
                                             <input type="hidden" name="personId" value="<?php echo $person->getId();?>" />
                                             <button type="submit" class="btn btn-danger">Delete</button>  
                                         </form>

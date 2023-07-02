@@ -101,22 +101,23 @@ class Language
     {
         $mysqli = Db::initConnectionDb();
 
-        $hasAudios = $mysqli->query("SELECT COUNT(*) FROM HAVE_AUDIO WHERE language_id='$id'");
-    
-        $mysqli->close();
+        $hasAudios = $mysqli->query("SELECT COUNT(*) as total FROM HAVE_AUDIO WHERE language_id='$id'");
+        $data=$hasAudios->fetch_assoc();
 
-        return $hasAudios >= 1;
+        $mysqli->close();
+        return $data['total'] >= 1;
     }
 
     public static function hasCaptionsLinked($id)
     {
         $mysqli = Db::initConnectionDb();
 
-        $hasCaptions = $mysqli->query("SELECT COUNT(*) FROM HAVE_CAPTIONS WHERE language_id='$id'");
+        $hasCaptions = $mysqli->query("SELECT COUNT(*) as total FROM HAVE_CAPTIONS WHERE language_id='$id'");
+        $data=$hasCaptions->fetch_assoc();
     
         $mysqli->close();
 
-        return $hasCaptions >= 1;
+        return $data['total'] >= 1;
     }
 
     public static function getByName($name)

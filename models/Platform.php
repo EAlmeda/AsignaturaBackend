@@ -103,11 +103,12 @@ class Platform
     {
         $mysqli = Db::initConnectionDb();
 
-        $platformData = $mysqli->query("SELECT COUNT(*) FROM BELONGS WHERE platform_id='$id'");
-        
+        $platformData = $mysqli->query("SELECT COUNT(*) as total FROM BELONGS WHERE platform_id='$id'");
+        $data = $platformData->fetch_assoc();
+
         $mysqli->close();
 
-        return $platformData >= 1;
+        return $data['total'] >= 1;
     }
 
     public static function insert($name)
@@ -130,8 +131,9 @@ class Platform
         return $result;
     }
 
-    public static function delete($id){
-        
+    public static function delete($id)
+    {
+
         $mysqli = Db::initConnectionDb();
 
         $result = $mysqli->query("DELETE FROM PLATFORM WHERE id='$id'");

@@ -19,22 +19,22 @@
                     $name = parse_input($_POST["languageName"]);
                     // check if name only contains letters and whitespace
                     if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-                      $nameErr = "* Only letters and white space allowed";
+                      $nameErr = "* Only letters and white space allowed.";
                     }
                 }
                 if (empty($_POST["languageIso"])) {
-                    $IsoErr = "* Name is required";
+                    $isoErr = "* Name is required";
                   } else {
-                    $name = parse_input($_POST["languageIso"]);
-                    // check if name only contains letters and whitespace
-                    if (!preg_match("/^[a-zA-Z-' ]{2}$/",$name)) {
-                      $IsoErr = "* Only letters and white space allowed";
+                    $iso = parse_input($_POST["languageIso"]);
+                    // check if iso only contains 2 letters
+                    if (!preg_match("/^[a-zA-Z-' ]{2}$/",$iso)) {
+                      $isoErr = "* A minimum of 2 letters required and a maximum 2 allowed for ISO.";
                     }
                 }
                 if(isset($_POST['languageName']) && isset($_POST['languageIso'])) {
                     $sendData = true;
                 }
-                if($sendData && empty($nameErr) && empty($IsoErr)) {
+                if($sendData && empty($nameErr) && empty($isoErr)) {
                     $languageCreated = storeLanguage($_POST['languageName'], $_POST['languageIso']);
                 }
 
@@ -79,7 +79,7 @@
                         ?>
                     <div class="row">
                         <div class="alert alert-danger" role="alert">
-                            The language has not been created correctly.<br><a href="create.php">Try it again.</a>
+                            The language has not been created correctly.<?php echo $nameErr . "" . $isoErr ?> <br><a href="create.php">Try it again.</a>
                         </div>
                     </div>
                     <?php

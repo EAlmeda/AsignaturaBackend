@@ -11,30 +11,44 @@
         <div class="container" style="padding:24px">
             <?php
             $idPlatform = $_GET['id'];
-            $platformObject = getPlatform($idPlatform);
-    
-            $sendData = false;
-            $platformEdited = false;
-            if(isset($_POST['editBtn'])) {
-                $sendData = true;
+            $idErr = '';
+            if (empty($idPlatform)) {
+                $idErr = "* Name is required";
+            } else {
+                $id = parse_input($idPlatform);
+                // check if name only contains numbers
+                if (!preg_match("/^[0-9]*$/",$id)) {
+                $idErr = "* Only numbers allowed";
+                }
             }
+
+            $sendData = false;
+            if (empty($idErr)) {
+                $platformObject = getPlatform($idPlatform);
         
-            if($sendData) {
-                $nameErr = "";
-                if (empty($_POST["platformName"])) {
-                    $nameErr = "* Name is required";
-                } else {
-                    $name = parse_input($_POST["platformName"]);
-                    // check if name only contains letters and whitespace
-                    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-                    $nameErr = "* Only letters and white space allowed for name";
+                $platformEdited = false;
+                if(isset($_POST['editBtn'])) {
+                    $sendData = true;
+                }
+            
+                if($sendData) {
+                    $nameErr = "";
+                    if (empty($_POST["platformName"])) {
+                        $nameErr = "* Name is required";
+                    } else {
+                        $name = parse_input($_POST["platformName"]);
+                        // check if name only contains letters and whitespace
+                        if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+                        $nameErr = "* Only letters and white space allowed for name";
+                        }
+                    }
+
+                    if(isset($_POST['platformName']) && empty($nameErr)) {
+                        $platformEdited = updatePlatform($_POST['platformId'], $_POST['platformName']);
                     }
                 }
-
-                if(isset($_POST['platformName']) && empty($nameErr)) {
-                    $platformEdited = updatePlatform($_POST['platformId'], $_POST['platformName']);
-                }
             }
+            
             function parse_input($data) {
                 $data = trim($data);
                 $data = stripslashes($data);

@@ -42,7 +42,7 @@
                 } else {
                     ?>
                     <div class="row">
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-warning" role="alert">
                             The platform has not been deleted correctly.<br><a href="list.php">Try it again.</a>
                         </div>
                     </div>

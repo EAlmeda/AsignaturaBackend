@@ -112,7 +112,7 @@ class Language
     {
         $mysqli = Db::initConnectionDb();
 
-        $hasCaptions = $mysqli->query("SELECT COUNT(*) FROM HAVE_CAPTIONS WHERE language_id='$id'");
+        $hasCaptions = $mysqli->query("SELECT COUNT(*) as total FROM HAVE_CAPTIONS WHERE language_id='$id'");
         $data=$hasCaptions->fetch_assoc();
     
         $mysqli->close();

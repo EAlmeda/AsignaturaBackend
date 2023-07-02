@@ -27,6 +27,14 @@ require_once('../../controllers/LanguageController.php');
         $selectedDirectors = [];
         $selectedAudios = [];
         $selectedCaptions = [];
+
+        function parse_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+        
         if (!isset($_POST['selectedPlatforms']))
             $_POST['selectedPlatforms'] = [];
 

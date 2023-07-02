@@ -14,7 +14,9 @@ class Person
         $this->id = $id;
         $this->name = $name;
         $this->surname = $surname;
-        $this->birthdate = date("d/m/Y", strtotime($birthdate));
+        $date = strtotime(strtr($birthdate, '/', '-'));
+        $newformat = date('d/m/Y',$date);
+        $this->birthdate = $newformat;
         $this->nationality = $nationality;
     }
 
@@ -42,7 +44,6 @@ class Person
      */
     public function getBirthdate()
     {   
-        # TODO Correctly parse for the correct visualization of data in list view.
         return $this->birthdate;
     }
 

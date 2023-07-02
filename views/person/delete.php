@@ -13,26 +13,46 @@ require_once('../../controllers/PersonController.php');
     <div class="container" style="padding:24px">
         <?php
         $idPerson = $_POST['personId'];
-        $personDeleted = deletePerson($idPerson);
+        if (empty($idPerson)) {
+            $idErr = "* Id is required";
+          } else {
+            $id = parse_input($idPerson);
+            // check if name only contains numbers
+            if (!preg_match("/^[0-9]*$/",$id)) {
+              $idErr = "* Only numbers allowed";
+            }
+        }
 
-        if ($personDeleted) {
-        ?>
-            <div class="row">
-                <div class="alert alert-success" role="alert">
-                    Person deleted successfully.<br><a href="list.php">Go back to the list of people.</a>
-                </div>
-            </div>
-        <?php
+        if (empty($idErr)) {
+            $personDeleted = deletePerson($idPerson);
+
+            if ($personDeleted) {
+                ?>
+                    <div class="row">
+                        <div class="alert alert-success" role="alert">
+                            Person deleted successfully.<br><a href="list.php">Go back to the list of people.</a>
+                        </div>
+                    </div>
+                <?php
+                } else {
+                ?>
+                    <div class="row">
+                        <div class="alert alert-warning" role="alert">
+                            The person has not been deleted correctly.<br><a href="list.php">Try it again.</a>
+                        </div>
+                    </div>
+                <?php
+                }
         } else {
-        ?>
+            ?>
             <div class="row">
                 <div class="alert alert-warning" role="alert">
-                    The person has not been deleted correctly.<br><a href="list.php">Try it again.</a>
+                    Please insert a valid ID, remember only numbers are allowed.<br><a href="list.php">Try it again.</a>
                 </div>
             </div>
-        <?php
+            <?php 
         }
-        ?>
+        ?>      
     </div>
 </body>
 

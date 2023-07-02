@@ -12,7 +12,7 @@
 
             $mysqli = Db::initConnectionDb();
 
-            $query = $mysqli->query("SELECT acts.person_id, person.name, person.surname, person.birth_date, person.nationality FROM acts INNER JOIN person ON person.id WHERE person.id = acts.person_id;");
+            $query = $mysqli->query("SELECT distinct acts.person_id, person.name, person.surname, person.birth_date, person.nationality FROM acts INNER JOIN person ON person.id WHERE person.id = acts.person_id;");
 
             $listData = [];
             foreach ($query as $item) {

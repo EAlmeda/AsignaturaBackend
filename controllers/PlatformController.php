@@ -38,22 +38,6 @@ function storePlatform($platformName)
     }
 }
 
-function getPlatformByName($platformName)
-{
-    $mysqli = Db::initConnectionDb();
-
-    $platformData = $mysqli->query("SELECT * FROM platform WHERE name=$platformName");
-    $platformObject = null;
-    foreach ($platformData as $platformItem) {
-        $platformObject = new Platform($platformItem['id'], $platformItem['name']);
-        break;
-    }
-
-    $mysqli->close();
-
-    return $platformObject;
-}
-
 function updatePlatform($platformId, $platformName)
 {
     $platformEdited = false;
@@ -75,7 +59,7 @@ function deletePlatform($platformId)
 
     $platformDeleted = false;
 
-     if (getPlatform($platformId)) {
+     if (getPlatform($platformId) && !Platform::hasSeriesLinked($platformId)) {
          if (Platform::delete($platformId)) {
              $platformDeleted = true;
          }

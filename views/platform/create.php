@@ -12,14 +12,28 @@
             <?php
                 $sendData = false;
                 $platformCreated = false;
-                $errorMessage='';
+                $nameErr = "";
+                if (empty($_POST["platformName"])) {
+                    $nameErr = "* Name is required";
+                } else {
+                    $name = parse_input($_POST["platformName"]);
+                    // check if name only contains letters and whitespace
+                    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+                    $nameErr = "* Only letters and white space allowed";
+                    }
+                }
                 if(isset($_POST['platformName'])) {
                     $sendData = true;
                 }
-                if($sendData) {
-                    if(isset($_POST['platformName'])) {
-                        $platformCreated = storePlatform($_POST['platformName']);
-                    }
+                if($sendData && empty($nameErr)) {
+                    $platformCreated = storePlatform($_POST['platformName']);
+                }
+
+                function parse_input($data) {
+                    $data = trim($data);
+                    $data = stripslashes($data);
+                    $data = htmlspecialchars($data);
+                    return $data;
                 }
 
                 if(!$sendData) {

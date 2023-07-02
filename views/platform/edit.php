@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <?php include '../../head.html'; ?>
+        <?php include '../../head.html'; ?>
         <title>Edit plataform</title>
     </head>
     <body>
@@ -20,9 +20,26 @@
             }
         
             if($sendData) {
-                if(isset($_POST['platformName'])) {
+                $nameErr = "";
+                if (empty($_POST["platformName"])) {
+                    $nameErr = "* Name is required";
+                } else {
+                    $name = parse_input($_POST["platformName"]);
+                    // check if name only contains letters and whitespace
+                    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+                    $nameErr = "* Only letters and white space allowed for name";
+                    }
+                }
+
+                if(isset($_POST['platformName']) && empty($nameErr)) {
                     $platformEdited = updatePlatform($_POST['platformId'], $_POST['platformName']);
                 }
+            }
+            function parse_input($data) {
+                $data = trim($data);
+                $data = stripslashes($data);
+                $data = htmlspecialchars($data);
+                return $data;
             }
 
             if(!$sendData) {

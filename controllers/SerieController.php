@@ -21,8 +21,6 @@ function listSeries()
         );
         array_push($serieObjectArray, $serieObject);
     }
-    
-    array_push($serieObjectArray, $serieObject);
 
     return $serieObjectArray;
 }
@@ -43,9 +41,9 @@ function storeSerie($serieName, $seriePlatforms,  $serieDirects, $serieActs, $se
     if (!isset($serieName) || !isset($seriePlatforms) || !isset($serieDirects) || !isset($serieActs) || !isset($serieAudios) || !isset($serieCaptions)) {
         echo ('There is any empty field.');
         return false;
-    // }
-    // if (Serie::insert($serie->getId(), $serieName, $seriePlatforms,  $serieDirects, $serieActs, $serieAudios, $serieCaptions)) {
-    //     return true;
+    }
+    if (Serie::insert($serieName, $seriePlatforms,  $serieDirects, $serieActs, $serieAudios, $serieCaptions)) {
+        return true;
     } else {
         echo ('An error occurred adding the serie to DB');
         return false;
@@ -63,9 +61,9 @@ function getSerie($serieId)
 function updateSerie($serieId, $serieName, $seriePlatforms,  $serieDirects, $serieActs, $serieAudios, $serieCaptions)
 {
     $serieEdited = false;
-
-    if (Serie::getById($serieId)) {
-        if (Serie::update($serieId, $serieName, $seriePlatforms,  $serieDirects, $serieActs, $serieAudios, $serieCaptions)) {
+    $serie = Serie::getById($serieId);
+    if ($serie) {
+        if ($serie->update($serieId, $serieName, $seriePlatforms,  $serieDirects, $serieActs, $serieAudios, $serieCaptions)) {
             $serieEdited = true;
         }
     }
